@@ -1,5 +1,31 @@
 Defintions, Acronyms, and Abbreviations:
+"All Day Event": a checkbox that changes the start time to 12:00 AM and the end time to 11:59PM
+"X": A user determined number by way of input box
 
 Functional Requirements:
+
+2. Events:
+	2.1 Allow the user to create events to the calender
+		2.1.1 The user will have a button to add events to their calender
+	2.2 Allow the user to change the starting and ending times
+		2.2.1 Allow the user to create and "All Day" event
+	2.3 Notify the user if there is a conflict between event times
+		2.3.1 Ask the user if they are sure they want to create the event with a time conflict
+		2.3.1 Show the user the times of the confict so that the user may make the appropriate adjustments
+	2.4 Have a classification system for the events added such as birthday etc.
+		2.4.1 Give a 24 hour notice for birthdays
+		2.4.2 Color coordinate the event types
+		2.4.3 Allow the user to create custom event types (i.e. weddings)
+	2.5 Allow the user to recieve a notification 'X' amount of hours before the event
+		2.5.1 Give the user a scoll bar to select a time value
+			2.5.1.1 Have the time values increment by 15 minutes
+	2.6 Allow the user to remove/delete events
+		2.6.1 Allow the user click on an event, select 'remove event'
+		2.6.2 Give the user a confirmation message before deleting the event
+	2.7 Colors
+		2.7.1 Use different colors to specify different categories
+		2.7.2 User defined categories may allow the user to change the colors for that category
+
+
 
 Use Case Diagram:
