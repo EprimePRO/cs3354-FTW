@@ -5,7 +5,6 @@ Defintions, Acronyms, and Abbreviations:
 Functional Requirements:
 
 1. Views:
-
 	1.1 Allow the user to view the calendar in a daily view.
 		1.1.1 Sort the events chronologically.
 	1.2 Allow the user to view the calendar in a weekly view.
