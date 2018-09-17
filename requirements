@@ -13,7 +13,7 @@ Functional Requirements:
 		1.3.1 Each day will show their events.
 	1.4 Allow the user to view the calendar in a yearly view.
 		1.4.1 Days with events will be highlighted.
-	1.5 Allow the user to view a list with all future events sorted chronologically.
+	1.5 Allow the user to view a list with all future events.
 		1.5.1 Sort the events chronologically. 
 		1.5.2 Seperate events by month and year.
 
