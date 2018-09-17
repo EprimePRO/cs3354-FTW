@@ -38,6 +38,19 @@ Functional Requirements:
 	2.7 Colors
 		2.7.1 Use different colors to specify different categories
 		2.7.2 User defined categories may allow the user to change the colors for that category
+3. Share:
+	
+	3.1 Permession to access user calendar
+		3.1.1 The share function will allow request to access calendar 
+		3.1.2 Share funciton will allow user to invite to calendar 
+	3.2 Viewing calendar
+		3.2.1 Once invite is acceptected the user can display content of calendar
+		3.2.2 The user will see display of month/day/year.
+		3.2.3 The user will see display of events
+		3.2.4 The user will see activity
+	3.3 Modify Calendar
+	 	3.3.1 Adding content to calendar
+		3.3.2 Remove content of calendar
 		
 4. Other Functions
 	4.1 Holidays and weekends should be highlighted in special colors
