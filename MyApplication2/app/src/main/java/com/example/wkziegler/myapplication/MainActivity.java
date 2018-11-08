@@ -13,7 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         calendarView = findViewById(R.id.calendarView);
-        Calendar calendar = Calendar.getInstance();
+        final Calendar calendar = Calendar.getInstance();
         myDate = findViewById(R.id.myDate);
 
         //calendarView.setDate(Calendar.getInstance().getTimeInMillis(),false,true);
@@ -58,8 +61,13 @@ public class MainActivity extends AppCompatActivity {
 
                 String date = (month+1) + "/" + dayOfMonth + "/" + year;
                 myDate.setText(date);
-
                 long dateNum = calendarView.getDate();
+
+                try {
+                    dateNum = new SimpleDateFormat("MM/dd/yyy").parse(date).getTime();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
 
                 intent.putExtra("date", date);
                 intent.putExtra("longDate", dateNum);
@@ -77,7 +85,8 @@ public class MainActivity extends AppCompatActivity {
         calendarView = findViewById(R.id.calendarView);
 
         String passedDate = getIntent().getStringExtra("date");
-        long dateNumber = getIntent().getLongExtra("longDate", Calendar.getInstance().getTimeInMillis());
+        //long dateNumber = getIntent().getLongExtra("longDate", Calendar.getInstance().getTimeInMillis());
+        long dateNumber = getIntent().getLongExtra("longDate", 0);
 
         Log.d("RESUME", dateNumber + "");
 

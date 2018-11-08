@@ -19,8 +19,10 @@ public class EventActivity extends AppCompatActivity {
         Button button = findViewById(R.id.button);
 
         final String date = getIntent().getStringExtra("date");
+
+        //gets date sent through intent, default value is the current date
         final long dateNum = getIntent().getLongExtra("longDate", Calendar.getInstance().getTimeInMillis());
-        if(date != null){
+        if(dateNum > 0){
             textView.setText(date);
         }
 
