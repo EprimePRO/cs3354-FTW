@@ -22,7 +22,7 @@ public class EventActivity extends AppCompatActivity {
 
         //gets date sent through intent, default value is the current date
         final long dateNum = getIntent().getLongExtra("longDate", Calendar.getInstance().getTimeInMillis());
-        if(dateNum > 0){
+        if (dateNum > 0) {
             textView.setText(date);
         }
 

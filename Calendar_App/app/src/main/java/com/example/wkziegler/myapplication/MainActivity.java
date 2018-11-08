@@ -43,12 +43,11 @@ public class MainActivity extends AppCompatActivity {
         actionBar.setTitle(null);
 
 
-
         int m = calendar.get(calendar.MONTH);
         int d = calendar.get(calendar.DAY_OF_MONTH);
         int y = calendar.get(calendar.YEAR);
 
-        date = (m+1) + "/" + d + "/" + y;
+        date = (m + 1) + "/" + d + "/" + y;
 
         myDate.setText(date);
         calendarView.setFirstDayOfWeek(1);
@@ -59,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, EventActivity.class);
 
 
-                String date = (month+1) + "/" + dayOfMonth + "/" + year;
+                String date = (month + 1) + "/" + dayOfMonth + "/" + year;
                 myDate.setText(date);
                 long dateNum = calendarView.getDate();
 
@@ -90,11 +89,10 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("RESUME", dateNumber + "");
 
-        if(passedDate!=null && dateNumber > 0){
+        if (passedDate != null && dateNumber > 0) {
             myDate.setText(passedDate);
             calendarView.setDate(dateNumber);
-        }
-        else if (dateNumber == 0) {
+        } else if (dateNumber == 0) {
             calendarView.setDate(Calendar.getInstance().getTimeInMillis());
         }
 
