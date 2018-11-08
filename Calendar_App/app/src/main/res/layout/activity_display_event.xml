@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DisplayEvent">
+    tools:context="com.example.wkziegler.calendar_app.DisplayEvent">
 
 </android.support.constraint.ConstraintLayout>

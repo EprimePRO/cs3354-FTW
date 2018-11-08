@@ -1,4 +1,4 @@
-package com.example.wkziegler.myapplication;
+package com.example.wkziegler.calendar_app;
 
 import android.content.Intent;
 import android.os.Bundle;

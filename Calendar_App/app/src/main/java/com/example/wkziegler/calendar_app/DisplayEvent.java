@@ -1,4 +1,4 @@
-package com.example.wkziegler.myapplication;
+package com.example.wkziegler.calendar_app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
