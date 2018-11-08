@@ -1,4 +1,4 @@
-package com.example.wkziegler.calendar_app;
+package com.ftw.calendar_app;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
