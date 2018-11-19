@@ -78,8 +78,8 @@ public class EventActivity extends AppCompatActivity {
 
 
         ListView eventList = findViewById(R.id.eventList);
-        //eventList.setAdapter(adapter);
-        eventList.setAdapter(simpleAdapter);
+        eventList.setAdapter(adapter);
+        //eventList.setAdapter(simpleAdapter);
 
         Log.d("DATENUM", dateNum + "");
 
