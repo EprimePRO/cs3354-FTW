@@ -69,9 +69,11 @@ public class EventActivity extends AppCompatActivity {
             counter+=2;
         }
 
-       // ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, events_array);
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, events_array);
         //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, events_array);
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, events_array, android.R.layout.simple_list_item_2, new String[] {"title", "data"}, new int[] {android.R.id.text1, android.R.id.text2});
+
+        //must create a List of mappings for this
+        //SimpleAdapter simpleAdapter = new SimpleAdapter(this, events_array, android.R.layout.simple_list_item_2, new String[] {"title", "data"}, new int[] {android.R.id.text1, android.R.id.text2});
 
 
 
