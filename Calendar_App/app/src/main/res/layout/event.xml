@@ -22,20 +22,6 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/backButton"
-        android:layout_width="wrap_content"
-        android:layout_height="49dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="Go Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
         android:id="@+id/addEvent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,14 +31,16 @@
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:text="Add Event"
-        app:layout_constraintBottom_toTopOf="@+id/backButton"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/label_desc"
-        android:layout_width="134dp"
+        android:layout_width="0dp"
         android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -60,12 +48,16 @@
         android:text="Description"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         app:layout_constraintBottom_toTopOf="@+id/addEvent"
-        app:layout_constraintEnd_toStartOf="@+id/eventTextDesc" />
+        app:layout_constraintEnd_toStartOf="@+id/eventTextDesc"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/label_title"
-        android:layout_width="60dp"
+        android:layout_width="0dp"
         android:layout_height="44dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -73,7 +65,9 @@
         android:text="Title"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         app:layout_constraintBottom_toTopOf="@+id/label_desc"
-        app:layout_constraintEnd_toStartOf="@+id/eventTextTitle" />
+        app:layout_constraintEnd_toStartOf="@+id/eventTextTitle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/eventList" />
 
     <EditText
         android:id="@+id/eventTextDesc"

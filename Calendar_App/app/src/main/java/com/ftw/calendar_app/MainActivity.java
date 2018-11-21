@@ -1,24 +1,16 @@
 package com.ftw.calendar_app;
 
-import android.app.usage.UsageEvents;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ftw.calendar_app.R;
-
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -53,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
-                Intent intent = new Intent(MainActivity.this, EventActivity.class);
+                Intent intent = new Intent(MainActivity.this, DayActivity.class);
 
 
                 String date = (month+1) + "/" + dayOfMonth + "/" + year;
