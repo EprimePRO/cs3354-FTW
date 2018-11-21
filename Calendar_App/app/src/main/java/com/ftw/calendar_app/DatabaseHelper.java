@@ -56,4 +56,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return res;
     }
+
+    public Cursor getEventByTitle(String title){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " +
+                COL_4 + " FROM " + TABLE_NAME +
+                " WHERE " + COL_3 + " = '" + title+"'", null);
+
+        return res;
+    }
 }
