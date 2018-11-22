@@ -6,18 +6,22 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class EventActivity extends AppCompatActivity {
+public class DayActivity extends AppCompatActivity {
     TextView editTitle, editDesc, showDate;
     Button eventButton, backButton;
     DatabaseHelper myDb;
@@ -28,7 +32,7 @@ public class EventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.event);
 
-        //Toast.makeText(EventActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
+        //Toast.makeText(DayActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
 
         myDb = new DatabaseHelper(this);
 
@@ -36,7 +40,6 @@ public class EventActivity extends AppCompatActivity {
         editDesc = findViewById(R.id.eventTextDesc);
 
         TextView showDate = findViewById(R.id.showDate);
-        Button backButton = findViewById(R.id.backButton);
         eventButton = findViewById(R.id.addEvent);
 
 
@@ -59,39 +62,37 @@ public class EventActivity extends AppCompatActivity {
             //no events on this date
         }
 
-        String[] events_array = new String[res.getCount()*2];
-        int counter = 0;
-
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
         while (res.moveToNext()) {
             //add all contents to the array
-            events_array[counter] = res.getString(0);
-            events_array[counter+1] = res.getString(1);
-            counter+=2;
+            Map mMap = new HashMap();
+            mMap.put("title", res.getString(0));
+            mMap.put("description", res.getString(1));
+            list.add(mMap);
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.activity_listview, events_array);
-        //ArrayAdapter adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_2, events_array);
-
-        //must create a List of mappings for this
-        //SimpleAdapter simpleAdapter = new SimpleAdapter(this, events_array, android.R.layout.simple_list_item_2, new String[] {"title", "data"}, new int[] {android.R.id.text1, android.R.id.text2});
-
-
+        SimpleAdapter simpleAdapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[] {"title", "description"}, new int[] {android.R.id.text1, android.R.id.text2});
 
         ListView eventList = findViewById(R.id.eventList);
-        eventList.setAdapter(adapter);
-        //eventList.setAdapter(simpleAdapter);
+        eventList.setAdapter(simpleAdapter);
 
         Log.d("DATENUM", dateNum + "");
 
-        backButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(EventActivity.this, MainActivity.class);
+        eventList.setOnItemClickListener(new OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> adapter, View v, int position, long id)
+            {
+                Map value = (Map)adapter.getItemAtPosition(position);
+                // assuming string and if you want to get the value on click of list item
+                // do what you intend to do on click of listview row
+                Intent intent = new Intent(DayActivity.this, EventDetailsActivity.class);
+                intent.putExtra("event", (String)value.get("title"));
+                intent.putExtra("dateLong", dateNum);
                 intent.putExtra("date", date);
-                intent.putExtra("longDate", dateNum);
                 startActivity(intent);
             }
         });
-
 
     }
 
@@ -100,12 +101,12 @@ public class EventActivity extends AppCompatActivity {
             public void onClick(View view) {
                 boolean isInserted = myDb.insertData(String.valueOf(dateNum), String.valueOf(editTitle.getText()), String.valueOf(editDesc.getText()));
                 if (isInserted) {
-                    Toast.makeText(EventActivity.this, "Event added!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DayActivity.this, "Event added!", Toast.LENGTH_LONG).show();
                     finish();
                     startActivity(getIntent());
                 }
                 else {
-                    Toast.makeText(EventActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(DayActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
                 }
             }
         });

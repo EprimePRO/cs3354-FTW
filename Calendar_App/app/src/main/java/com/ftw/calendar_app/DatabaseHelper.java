@@ -56,4 +56,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         return res;
     }
+
+    public Cursor getEvent(String title, String dateNum){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " +
+                COL_4 + " FROM " + TABLE_NAME +
+                " WHERE " + COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
+
+        return res;
+    }
+
+    public boolean deleteEvent(String title, String dateNum){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int numRowsDeleted = db.delete(TABLE_NAME, COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
+        return numRowsDeleted == 1;
+    }
 }
