@@ -13,7 +13,7 @@ import java.util.Calendar;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
-    TextView eventTitle, eventDescription;
+    TextView eventTitle, eventDescription, startTime, endTime;
     DatabaseHelper db;
     Long dateNum;
 
@@ -33,11 +33,13 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         eventTitle = (TextView) findViewById(R.id.eventTitle);
         eventDescription = (TextView) findViewById(R.id.eventDescription);
+        startTime = (TextView) findViewById(R.id.startTime);
+        endTime = (TextView) findViewById(R.id.endTime);
         cursor.moveToNext();
         eventTitle.setText(cursor.getString(0));
         eventDescription.setText(cursor.getString(1));
-
-
+        startTime.setText(cursor.getString(2));
+        endTime.setText(cursor.getString(3));
     }
 
     public void deleteEvent(View v){
