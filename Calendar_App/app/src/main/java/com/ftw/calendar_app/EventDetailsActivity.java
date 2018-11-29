@@ -42,6 +42,10 @@ public class EventDetailsActivity extends AppCompatActivity {
         endTime.setText(cursor.getString(3));
     }
 
+    public void editEvent(View v){
+        //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
+    }
+
     public void deleteEvent(View v){
         Boolean deleted = db.deleteEvent(eventTitle.getText().toString(), String.valueOf(dateNum));
         if(deleted){

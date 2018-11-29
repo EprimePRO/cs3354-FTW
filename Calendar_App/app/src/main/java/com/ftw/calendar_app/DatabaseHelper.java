@@ -54,6 +54,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    public boolean editData(String start_time, String title, String description, String startTime, String endTime, String startPeriod, String endPeriod) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(COL_1, start_time);
+        contentValues.put(COL_3, title);
+        contentValues.put(COL_4, description);
+        contentValues.put(COL_5, startTime + " " + startPeriod);
+        contentValues.put(COL_6, endTime + " " + endPeriod);
+
+        db.update(TABLE_NAME, contentValues,"",new String[] {start_time});
+        return true;
+    }
+
     public Cursor getEventsByDate(String dateNum) {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 + ", " + COL_5 + ", " + COL_6 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + dateNum, null);

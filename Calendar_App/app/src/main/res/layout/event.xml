@@ -99,7 +99,7 @@
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         app:layout_constraintBottom_toTopOf="@+id/label_desc"
         app:layout_constraintEnd_toStartOf="@+id/eventTextTitle"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
