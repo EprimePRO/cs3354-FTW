@@ -1,7 +1,6 @@
 package com.ftw.calendar_app;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     ListView events;
     String date;
 
+    DatabaseHelper myDb;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,36 +30,30 @@ public class MainActivity extends AppCompatActivity {
         final Calendar calendar = Calendar.getInstance();
         myDate = findViewById(R.id.myDate);
 
-        //calendarView.setDate(Calendar.getInstance().getTimeInMillis(),false,true);
-
-        //events = findViewById(R.id.ctx);
-
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(false);
-        actionBar.setTitle(null);
-
 
         int m = calendar.get(calendar.MONTH);
         int d = calendar.get(calendar.DAY_OF_MONTH);
         int y = calendar.get(calendar.YEAR);
 
-        date = (m + 1) + "/" + d + "/" + y;
+        date = (m+1) + "/" + d + "/" + y;
 
         myDate.setText(date);
+
+        //Set first day of the week to Sunday
         calendarView.setFirstDayOfWeek(1);
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
-                Intent intent = new Intent(MainActivity.this, EventActivity.class);
+                Intent intent = new Intent(MainActivity.this, DayActivity.class);
 
 
-                String date = (month + 1) + "/" + dayOfMonth + "/" + year;
+                String date = (month+1) + "/" + dayOfMonth + "/" + year;
                 myDate.setText(date);
                 long dateNum = calendarView.getDate();
 
                 try {
-                    dateNum = new SimpleDateFormat("MM/dd/yyy").parse(date).getTime();
+                    dateNum = new SimpleDateFormat("MM/dd/yyyy").parse(date).getTime();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
@@ -84,10 +79,11 @@ public class MainActivity extends AppCompatActivity {
 
         Log.d("RESUME", dateNumber + "");
 
-        if (passedDate != null && dateNumber > 0) {
+        if(passedDate!=null && dateNumber > 0){
             myDate.setText(passedDate);
             calendarView.setDate(dateNumber);
-        } else if (dateNumber == 0) {
+        }
+        else if (dateNumber == 0) {
             calendarView.setDate(Calendar.getInstance().getTimeInMillis());
         }
 

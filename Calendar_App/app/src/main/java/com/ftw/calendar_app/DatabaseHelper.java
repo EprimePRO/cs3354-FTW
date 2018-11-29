@@ -1,4 +1,4 @@
-package com.example.wkziegler.myapplication;
+package com.ftw.calendar_app;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,6 +14,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //public static final String COL_2 = "end_epoch_time";
     public static final String COL_3 = "title";
     public static final String COL_4 = "description";
+    public static final String COL_5 = "startTime";
+    public static final String COL_6 = "endTime";
 
 
     public DatabaseHelper(Context context) {
@@ -22,7 +24,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " LONG, " + COL_3 + " TEXT, " + COL_4 + " TEXT) ");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " LONG, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
         Log.d("trash", "create table called");
     }
 
@@ -32,12 +34,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String start_time, String title, String description) {
+    public boolean insertData(String start_time, String title, String description, String startTime, String endTime) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, start_time);
         contentValues.put(COL_3, title);
         contentValues.put(COL_4, description);
+        contentValues.put(COL_5, startTime);
+        contentValues.put(COL_6, endTime);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         db.close();
@@ -52,8 +56,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     public Cursor getEventsByDate(String dateNum) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + dateNum, null);
+        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 + ", " + COL_5 + ", " + COL_6 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + dateNum, null);
 
         return res;
+    }
+
+    public Cursor getEvent(String title, String dateNum){
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 +  ", " + COL_5 + ", " + COL_6 + " FROM " + TABLE_NAME +
+                " WHERE " + COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
+
+        return res;
+    }
+
+    public boolean deleteEvent(String title, String dateNum){
+        SQLiteDatabase db = this.getWritableDatabase();
+        int numRowsDeleted = db.delete(TABLE_NAME, COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
+        return numRowsDeleted == 1;
     }
 }
