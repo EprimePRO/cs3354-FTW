@@ -14,12 +14,12 @@
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="8dp"
         android:gravity="center"
         android:text="End Time"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         app:layout_constraintBottom_toTopOf="@+id/addEvent"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerEnd"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerEndTime"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -35,7 +35,8 @@
         android:text="Start Time"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
         app:layout_constraintBottom_toTopOf="@+id/label_end"
-        app:layout_constraintEnd_toStartOf="@+id/spinnerStart"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerStartTime"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -70,7 +71,7 @@
     <TextView
         android:id="@+id/label_desc"
         android:layout_width="0dp"
-        android:layout_height="49dp"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginEnd="8dp"
@@ -110,7 +111,7 @@
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textShortMessage|textLongMessage"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerStart"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerStartTime"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <EditText
@@ -142,18 +143,38 @@
         app:layout_constraintTop_toBottomOf="@+id/showDate" />
 
     <Spinner
-        android:id="@+id/spinnerStart"
-        android:layout_width="215dp"
+        android:id="@+id/spinnerStartTime"
+        android:layout_width="117dp"
         android:layout_height="46dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/spinnerEnd"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerEndTime"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerStartPeriod" />
+
+    <Spinner
+        android:id="@+id/spinnerEndTime"
+        android:layout_width="117dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/addEvent"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerEndPeriod" />
+
+    <Spinner
+        android:id="@+id/spinnerStartPeriod"
+        android:layout_width="90dp"
+        android:layout_height="46dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerEndPeriod"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Spinner
-        android:id="@+id/spinnerEnd"
-        android:layout_width="215dp"
+        android:id="@+id/spinnerEndPeriod"
+        android:layout_width="90dp"
         android:layout_height="46dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"

@@ -34,14 +34,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertData(String start_time, String title, String description, String startTime, String endTime) {
+    public boolean insertData(String start_time, String title, String description, String startTime, String endTime, String startPeriod, String endPeriod) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, start_time);
         contentValues.put(COL_3, title);
         contentValues.put(COL_4, description);
-        contentValues.put(COL_5, startTime);
-        contentValues.put(COL_6, endTime);
+        contentValues.put(COL_5, startTime + " " + startPeriod);
+        contentValues.put(COL_6, endTime + " " + endPeriod);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         db.close();

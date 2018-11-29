@@ -25,7 +25,7 @@ import java.util.Map;
 public class DayActivity extends AppCompatActivity {
     TextView editTitle, editDesc, showDate;
     Button eventButton, backButton;
-    Spinner startTime, endTime;
+    Spinner startTime, endTime, startPeriod, endPeriod;
     DatabaseHelper myDb;
     long dateNum;
     Cursor res;
@@ -37,21 +37,24 @@ public class DayActivity extends AppCompatActivity {
         //Toast.makeText(DayActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
 
         // Probably a better way to do this but I am too lazy
-        String[] times = new String[] {"12:00AM","12:15AM","12:30AM","12:45AM","1:00AM","1:15AM","1:30AM","1:45AM","2:00AM","2:15AM",
-                "2:30AM","2:45AM","3:00AM","3:15AM","3:30AM","3:45AM","4:00AM","4:15AM","4:30AM","4:45AM","5:00AM","5:15AM","5:30AM","5:45AM",
-                "6:00AM","6:15AM","6:30AM","6:45AM","7:00AM","7:15AM","7:30AM","7:45AM","8:00AM","8:15AM","8:30AM","8:45AM",
-                "9:00AM","9:15AM","9:30AM","9:45AM","10:00AM","10:15AM","10:30AM","10:45AM","11:00AM","11:15AM","11:30AM","11:45AM",
-                "12:00PM","12:15PM","12:30PM","12:45PM","1:00PM","1:15PM","1:30PM","1:45PM","2:00PM","2:15PM",
-                "2:30PM","2:45PM","3:00PM","3:15PM","3:30PM","3:45PM","4:00PM","4:15PM","4:30PM","4:45PM","5:00PM","5:15PM","5:30PM","5:45PM",
-                "6:00PM","6:15PM","6:30PM","6:45PM","7:00PM","7:15PM","7:30PM","7:45PM","8:00PM","8:15PM","8:30PM","8:45PM",
-                "9:00PM","9:15PM","9:30PM","9:45PM","10:00PM","10:15PM","10:30PM","10:45PM","11:00PM","11:15PM","11:30PM","11:45PM"};
+        String[] times = new String[] {"12:00","12:15","12:30","12:45","1:00","1:15","1:30","1:45","2:00","2:15",
+                "2:30","2:45","3:00","3:15","3:30","3:45","4:00","4:15","4:30","4:45","5:00","5:15","5:30","5:45",
+                "6:00","6:15","6:30","6:45","7:00","7:15","7:30","7:45","8:00","8:15","8:30","8:45",
+                "9:00","9:15","9:30","9:45","10:00","10:15","10:30","10:45","11:00","11:15","11:30","11:45"};
+        String[] periods = new String[] {"AM", "PM"};
 
-        startTime = findViewById(R.id.spinnerStart);
-        endTime = findViewById(R.id.spinnerEnd);
+        startTime = findViewById(R.id.spinnerStartTime);
+        endTime = findViewById(R.id.spinnerEndTime);
+        startPeriod = findViewById(R.id.spinnerStartPeriod);
+        endPeriod = findViewById(R.id.spinnerEndPeriod);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,times);
-        startTime.setAdapter(adapter);
-        endTime.setAdapter(adapter);
+        ArrayAdapter<String> adapterTimes = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,times);
+        ArrayAdapter<String> adapterPeriods = new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,periods);
+
+        startTime.setAdapter(adapterTimes);
+        endTime.setAdapter(adapterTimes);
+        startPeriod.setAdapter(adapterPeriods);
+        endPeriod.setAdapter(adapterPeriods);
 
         myDb = new DatabaseHelper(this);
 
@@ -119,7 +122,8 @@ public class DayActivity extends AppCompatActivity {
         eventButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 boolean isInserted = myDb.insertData(String.valueOf(dateNum), String.valueOf(editTitle.getText()),
-                        String.valueOf(editDesc.getText()), String.valueOf(startTime.getSelectedItem()), String.valueOf(endTime.getSelectedItem()));
+                        String.valueOf(editDesc.getText()), String.valueOf(startTime.getSelectedItem()), String.valueOf(endTime.getSelectedItem()),
+                        String.valueOf(startPeriod.getSelectedItem()), String.valueOf(endPeriod.getSelectedItem()));
                 if (isInserted) {
                     Toast.makeText(DayActivity.this, "Event added!", Toast.LENGTH_LONG).show();
                     finish();
