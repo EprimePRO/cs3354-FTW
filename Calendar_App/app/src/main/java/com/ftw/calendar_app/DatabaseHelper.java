@@ -16,6 +16,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COL_4 = "description";
     public static final String COL_5 = "startTime";
     public static final String COL_6 = "endTime";
+    public static final String COL_7 = "startPeriod";
+    public static final String COL_8 = "endPeriod";
 
 
     public DatabaseHelper(Context context) {
@@ -24,7 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " LONG, " + COL_3 + " TEXT, " + COL_4 + " TEXT, " + COL_5 + " TEXT, " + COL_6 + " TEXT)");
+        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " LONG, " + COL_3 + " TEXT, " + COL_4 + " TEXT, "
+                + COL_5 + " TEXT, " + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT)");
         Log.d("trash", "create table called");
     }
 
@@ -40,8 +43,10 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_1, start_time);
         contentValues.put(COL_3, title);
         contentValues.put(COL_4, description);
-        contentValues.put(COL_5, startTime + " " + startPeriod);
-        contentValues.put(COL_6, endTime + " " + endPeriod);
+        contentValues.put(COL_5, startTime);
+        contentValues.put(COL_6, endTime);
+        contentValues.put(COL_7, startPeriod);
+        contentValues.put(COL_8, endPeriod);
 
         long result = db.insert(TABLE_NAME, null, contentValues);
         db.close();
@@ -54,29 +59,31 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean editData(String start_time, String title, String description, String startTime, String endTime, String startPeriod, String endPeriod) {
+    public boolean editData(String dateNum, String title, String description, String startTime, String endTime, String startPeriod, String endPeriod) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL_1, start_time);
+        contentValues.put(COL_1, dateNum);
         contentValues.put(COL_3, title);
         contentValues.put(COL_4, description);
-        contentValues.put(COL_5, startTime + " " + startPeriod);
-        contentValues.put(COL_6, endTime + " " + endPeriod);
+        contentValues.put(COL_5, startTime);
+        contentValues.put(COL_6, endTime);
+        contentValues.put(COL_7, startPeriod);
+        contentValues.put(COL_8, endPeriod);
 
-        db.update(TABLE_NAME, contentValues,"",new String[] {start_time});
+        db.update(TABLE_NAME, contentValues,null,null);
         return true;
     }
 
     public Cursor getEventsByDate(String dateNum) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 + ", " + COL_5 + ", " + COL_6 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + dateNum, null);
+        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 + ", " + COL_5 + ", " + COL_6 + ", " + COL_7 + ", " + COL_8 + " FROM " + TABLE_NAME + " WHERE " + COL_1 + " = " + dateNum, null);
 
         return res;
     }
 
     public Cursor getEvent(String title, String dateNum){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 +  ", " + COL_5 + ", " + COL_6 + " FROM " + TABLE_NAME +
+        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 +  ", " + COL_5 + ", " + COL_6 + ", " + COL_7 + ", " + COL_8 + " FROM " + TABLE_NAME +
                 " WHERE " + COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
 
         return res;

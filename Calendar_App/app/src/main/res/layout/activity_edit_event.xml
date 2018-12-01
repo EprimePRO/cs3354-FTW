@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-<<<<<<< HEAD
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <Button
-        android:id="@+id/addEvent2"
-=======
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".EditEventActivity">
 
     <TextView
         android:id="@+id/label_end"
@@ -25,7 +18,7 @@
         android:gravity="center"
         android:text="End Time"
         android:textAppearance="@android:style/TextAppearance.Material.Title"
-        app:layout_constraintBottom_toTopOf="@+id/addEvent"
+        app:layout_constraintBottom_toTopOf="@+id/updateButton"
         app:layout_constraintEnd_toStartOf="@+id/spinnerEndTime"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -62,8 +55,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addEvent"
->>>>>>> master
+        android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -71,18 +63,12 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-<<<<<<< HEAD
-        android:onClick="editEvent"
+        android:onClick="updateEvent"
         android:text="Update Event"
-=======
-        android:text="Add Event"
->>>>>>> master
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-<<<<<<< HEAD
-=======
     <TextView
         android:id="@+id/label_desc"
         android:layout_width="0dp"
@@ -106,6 +92,7 @@
         android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
@@ -115,7 +102,8 @@
         app:layout_constraintBottom_toTopOf="@+id/label_desc"
         app:layout_constraintEnd_toStartOf="@+id/eventTextTitle"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/showDate" />
 
     <EditText
         android:id="@+id/eventTextDesc"
@@ -133,28 +121,14 @@
         android:id="@+id/eventTextTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         android:ems="10"
         android:inputType="textShortMessage"
         app:layout_constraintBottom_toTopOf="@+id/eventTextDesc"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <ListView
-        android:id="@+id/eventList"
-        android:layout_width="368dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/eventTextTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/showDate" />
 
     <Spinner
@@ -174,7 +148,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/addEvent"
+        app:layout_constraintBottom_toTopOf="@+id/updateButton"
         app:layout_constraintEnd_toStartOf="@+id/spinnerEndPeriod" />
 
     <Spinner
@@ -194,8 +168,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/addEvent"
+        app:layout_constraintBottom_toTopOf="@+id/updateButton"
         app:layout_constraintEnd_toEndOf="parent" />
 
->>>>>>> master
 </android.support.constraint.ConstraintLayout>

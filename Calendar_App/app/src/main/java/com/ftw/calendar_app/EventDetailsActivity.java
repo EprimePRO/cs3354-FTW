@@ -16,6 +16,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     TextView eventTitle, eventDescription, startTime, endTime;
     DatabaseHelper db;
     Long dateNum;
+    String eventName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         dateNum = intent.getLongExtra("dateLong", Calendar.getInstance().getTimeInMillis());
-        String eventName = intent.getStringExtra("event");
+        eventName = intent.getStringExtra("event");
         Cursor cursor = db.getEvent(eventName, String.valueOf(dateNum));
 
         eventTitle = (TextView) findViewById(R.id.eventTitle);
@@ -38,12 +39,17 @@ public class EventDetailsActivity extends AppCompatActivity {
         cursor.moveToNext();
         eventTitle.setText(cursor.getString(0));
         eventDescription.setText(cursor.getString(1));
-        startTime.setText(cursor.getString(2));
-        endTime.setText(cursor.getString(3));
+        startTime.setText(cursor.getString(2) + " " + cursor.getString(4));
+        endTime.setText(cursor.getString(3) + " " + cursor.getString(5));
+
     }
 
     public void editEvent(View v){
         //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
+        Intent intent = new Intent(EventDetailsActivity.this, EditEventActivity.class);
+        intent.putExtra("dateLong", dateNum);
+        intent.putExtra("event", eventName);
+        startActivity(intent);
     }
 
     public void deleteEvent(View v){

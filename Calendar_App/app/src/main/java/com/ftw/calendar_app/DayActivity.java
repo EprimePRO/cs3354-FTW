@@ -24,7 +24,7 @@ import java.util.Map;
 
 public class DayActivity extends AppCompatActivity {
     TextView editTitle, editDesc, showDate;
-    Button eventButton, backButton;
+    Button eventButton;
     Spinner startTime, endTime, startPeriod, endPeriod;
     DatabaseHelper myDb;
     long dateNum;
@@ -62,7 +62,7 @@ public class DayActivity extends AppCompatActivity {
         editDesc = findViewById(R.id.eventTextDesc);
 
         TextView showDate = findViewById(R.id.showDate);
-        eventButton = findViewById(R.id.addEvent);
+        eventButton = findViewById(R.id.updateButton);
 
 
         addData();

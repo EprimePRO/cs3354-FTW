@@ -18,8 +18,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity   android:name=".DayActivity"
-                    android:parentActivityName=".MainActivity">
+        <activity
+            android:name=".DayActivity"
+            android:parentActivityName=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -35,6 +36,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ftw.calendar_app.DayActivity" />
         </activity>
+        <activity android:name=".EditEventActivity"></activity>
     </application>
 
 </manifest>
