@@ -59,7 +59,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
-    public boolean editData(String dateNum, String title, String description, String startTime, String endTime, String startPeriod, String endPeriod) {
+    public int editData(String dateNum, String title, String description, String startTime, String endTime, String startPeriod, String endPeriod) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put(COL_1, dateNum);
@@ -70,8 +70,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         contentValues.put(COL_7, startPeriod);
         contentValues.put(COL_8, endPeriod);
 
-        db.update(TABLE_NAME, contentValues,null,null);
-        return true;
+
+        return db.update(TABLE_NAME, contentValues,COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'",null);
     }
 
     public Cursor getEventsByDate(String dateNum) {

@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Calendar App</string>
     <string name="title_activity_event_details">Event View</string>
+    <string name="title_activity_basic">BasicActivity</string>
 </resources>

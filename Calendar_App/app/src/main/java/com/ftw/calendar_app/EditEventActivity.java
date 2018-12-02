@@ -98,9 +98,16 @@ public class EditEventActivity extends AppCompatActivity {
     }
 
     public void updateEvent(View v){
-        db.editData(String.valueOf(dateNum), String.valueOf(eventTitle.getText()),
+        int result = db.editData(String.valueOf(dateNum), String.valueOf(eventTitle.getText()),
                 String.valueOf(eventDescription.getText()), String.valueOf(startTime.getSelectedItem()), String.valueOf(endTime.getSelectedItem()),
                 String.valueOf(startPeriod.getSelectedItem()), String.valueOf(endPeriod.getSelectedItem()));
-        Toast.makeText(EditEventActivity.this, "Updated!", Toast.LENGTH_LONG).show();
+        if(result == 1) {
+            Toast.makeText(EditEventActivity.this, "Updated!", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(EditEventActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }else{
+            Toast.makeText(EditEventActivity.this, "Error, Event not updated!", Toast.LENGTH_LONG).show();
+        }
     }
 }

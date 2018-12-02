@@ -3,6 +3,8 @@ package com.ftw.calendar_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.CalendarView;
 import android.widget.ListView;
@@ -10,30 +12,44 @@ import android.widget.TextView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
+    
+    //log Tag
+    private static final String TAG = "MainActivity";
 
     CalendarView calendarView;
+
     TextView myDate;
-    ListView events;
     String date;
+    Calendar androidCalendarDate;
 
     DatabaseHelper myDb;
+
+    private RecyclerView mRecyclerView;
+    private RecyclerViewEventAdapter mRecyclerAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
+    ArrayList<Event> mEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //load Database
+        myDb = new DatabaseHelper(this);
+
         calendarView = findViewById(R.id.calendarView);
         final Calendar calendar = Calendar.getInstance();
         myDate = findViewById(R.id.myDate);
 
 
-        int m = calendar.get(calendar.MONTH);
-        int d = calendar.get(calendar.DAY_OF_MONTH);
-        int y = calendar.get(calendar.YEAR);
+        int m = calendar.get(Calendar.MONTH);
+        int d = calendar.get(Calendar.DAY_OF_MONTH);
+        int y = calendar.get(Calendar.YEAR);
 
         date = (m+1) + "/" + d + "/" + y;
 
@@ -41,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
 
         //Set first day of the week to Sunday
         calendarView.setFirstDayOfWeek(1);
+
+        mEvents = getmEventsOnDate();
+        initRecyclerView();
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -87,5 +106,21 @@ public class MainActivity extends AppCompatActivity {
             calendarView.setDate(Calendar.getInstance().getTimeInMillis());
         }
 
+    }
+
+    ArrayList<Event> getmEventsOnDate(){
+        Calendar cal = Calendar.getInstance();
+        ArrayList<Event> events = new ArrayList<>();
+        events.add(new Event(cal.getTime(), cal.getTime(), "Title", ""));
+        return events;
+    }
+
+    void initRecyclerView(){
+        Log.d(TAG, "initRecyclerView: init recyclerView");
+        mRecyclerView = findViewById(R.id.eventList);
+        mRecyclerAdapter = new RecyclerViewEventAdapter(mEvents, this);
+
+        mRecyclerView.setAdapter(mRecyclerAdapter);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }
