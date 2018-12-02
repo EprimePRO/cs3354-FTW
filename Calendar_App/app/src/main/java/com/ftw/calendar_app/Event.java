@@ -30,7 +30,7 @@ public class Event {
     }
 
     public String getTime(){
-        SimpleDateFormat timeFormat = new SimpleDateFormat("h:m a");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
         return timeFormat.format(startDate);
     }
 

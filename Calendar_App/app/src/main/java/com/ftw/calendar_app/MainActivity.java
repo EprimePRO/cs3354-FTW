@@ -3,6 +3,7 @@ package com.ftw.calendar_app;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     
@@ -112,6 +114,8 @@ public class MainActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         ArrayList<Event> events = new ArrayList<>();
         events.add(new Event(cal.getTime(), cal.getTime(), "Title", ""));
+        cal.set(2019, 5, 2, 18, 01, 01);
+        events.add(new Event(cal.getTime(), cal.getTime(), "Title", ""));
         return events;
     }
 
@@ -122,5 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
         mRecyclerView.setAdapter(mRecyclerAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new DividerItemDecoration(mRecyclerView.getContext(), DividerItemDecoration.VERTICAL));
     }
 }
