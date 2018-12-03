@@ -26,7 +26,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE " + TABLE_NAME + " (" + COL_1 + " LONG, " + COL_3 + " TEXT, " + COL_4 + " TEXT, "
+        db.execSQL("CREATE TABLE " + TABLE_NAME +
+                " (" + COL_1 + " LONG, " + COL_3 + " TEXT, " + COL_4 + " TEXT, "
                 + COL_5 + " TEXT, " + COL_6 + " TEXT," + COL_7 + " TEXT," + COL_8 + " TEXT)");
         Log.d("trash", "create table called");
     }

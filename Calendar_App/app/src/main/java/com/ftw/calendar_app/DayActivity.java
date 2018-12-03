@@ -121,6 +121,7 @@ public class DayActivity extends AppCompatActivity {
     public void addData() {
         eventButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
+                //Event event = new Event();
                 boolean isInserted = myDb.insertData(String.valueOf(dateNum), String.valueOf(editTitle.getText()),
                         String.valueOf(editDesc.getText()), String.valueOf(startTime.getSelectedItem()), String.valueOf(endTime.getSelectedItem()),
                         String.valueOf(startPeriod.getSelectedItem()), String.valueOf(endPeriod.getSelectedItem()));
