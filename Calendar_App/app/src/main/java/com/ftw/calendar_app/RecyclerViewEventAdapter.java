@@ -1,6 +1,7 @@
 package com.ftw.calendar_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -16,7 +18,7 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
 
     public static final String TAG = "RecyclerViewEventAdapte";
 
-    private ArrayList<Event> mEvents = new ArrayList<>();
+    private ArrayList<Event> mEvents;
     private Context context;
 
     public class ViewHolder extends RecyclerView.ViewHolder{
@@ -28,7 +30,7 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
             super(itemView);
             title = itemView.findViewById(R.id.eventListTitle);
             time = itemView.findViewById(R.id.eventListTime);
-            parentLayout = itemView.findViewById(R.id.parent);
+            parentLayout = itemView.findViewById(R.id.event_list_item);
         }
     }
 
@@ -65,13 +67,16 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
         holder.title.setText(mEvents.get(i).getTitle());
         holder.time.setText(mEvents.get(i).getStartTime());
 
-        /*holder.parentLayout.setOnClickListener(new View.OnClickListener(){
+        holder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 Log.d(TAG, "onClick: clicked on: " + mEvents.get(i).getTitle());
-                Toast.makeText(context, mEvents.get(i).getTitle(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(context, EventDetailsActivity.class);
+                intent.putExtra("event", mEvents.get(i).getDatabaseID());
+
+                context.startActivity(intent);
             }
-        });*/
+        });
     }
 
     @Override

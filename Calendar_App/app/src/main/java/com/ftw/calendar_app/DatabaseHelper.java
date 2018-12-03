@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Calendar.db";
@@ -95,15 +96,24 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
 
-    /*public Cursor getEvent(String title, String dateNum){
+    public Event getEvent(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("SELECT " + COL_3 + ", " + COL_4 +  ", " + COL_5 + ", " + COL_6 + ", " + COL_7 + ", " + COL_8 + " FROM " + TABLE_NAME +
-                " WHERE " + COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
-
-        return res;
+        Cursor res = db.query(TABLE_NAME,
+                new String[] {COL_1, COL_2, COL_3, COL_4},
+                ID+" = '"+id+"'",
+                null, null, null, null);
+        if(res.moveToNext()){
+            Calendar start = Calendar.getInstance();
+            Calendar end = Calendar.getInstance();
+            start.setTimeInMillis(res.getLong(0));
+            end.setTimeInMillis(res.getLong(1));
+            return new Event(start, end, res.getString(2), res.getString(3), id);
+        }else{
+            return null;
+        }
     }
 
-    public boolean deleteEvent(String title, String dateNum){
+    /*public boolean deleteEvent(String title, String dateNum){
         SQLiteDatabase db = this.getWritableDatabase();
         int numRowsDeleted = db.delete(TABLE_NAME, COL_3 + " = '" + title+"'"+" AND "+COL_1+" = '"+dateNum+"'", null);
         return numRowsDeleted == 1;

@@ -80,7 +80,7 @@ public class DayActivity extends AppCompatActivity {
 
         //call method to display events
         //build array based on result set from sql query
-        Cursor res;
+        /*Cursor res;
         res = myDb.getEventsByDate(event.getDay());
         if (res.getCount() == 0) {
             //show message
@@ -117,7 +117,7 @@ public class DayActivity extends AppCompatActivity {
                 //intent.putExtra("date", date);
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 
