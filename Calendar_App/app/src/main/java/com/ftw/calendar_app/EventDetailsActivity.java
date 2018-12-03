@@ -1,7 +1,6 @@
 package com.ftw.calendar_app;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -9,33 +8,37 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.Calendar;
-
 public class EventDetailsActivity extends AppCompatActivity {
 
     TextView eventTitle, eventDescription, startTime, endTime;
     DatabaseHelper db;
     int eventID;
 
+    final int EVENT_MODIFIED = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_details);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         db = new DatabaseHelper(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        eventTitle = (TextView) findViewById(R.id.eventTitle);
-        eventDescription = (TextView) findViewById(R.id.eventDescription);
-        startTime = (TextView) findViewById(R.id.startTime);
-        endTime = (TextView) findViewById(R.id.endTime);
+        eventTitle = findViewById(R.id.eventTitle);
+        eventDescription = findViewById(R.id.eventDescription);
+        startTime = findViewById(R.id.startTime);
+        endTime = findViewById(R.id.endTime);
 
 
         eventID = intent.getIntExtra("event", 0);
-        //Cursor cursor = db.getEvent(eventName, String.valueOf(dateNum));
 
+        setEventInfo(eventID);
+
+    }
+
+    public void setEventInfo(int eventID){
         Event event = db.getEvent(eventID);
 
         if(event!= null){
@@ -46,36 +49,38 @@ public class EventDetailsActivity extends AppCompatActivity {
             startTime.setText(start);
             endTime.setText(end);
         }
-
-        /*cursor.moveToNext();
-        eventTitle.setText(cursor.getString(0));
-        eventDescription.setText(cursor.getString(1));
-        startTime.setText(cursor.getString(2) + " " + cursor.getString(4));
-        endTime.setText(cursor.getString(3) + " " + cursor.getString(5));*/
-
     }
 
-    /*public void editEvent(View v){
+    public void editEvent(View v){
         //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
-        Intent intent = new Intent(EventDetailsActivity.this, EditEventActivity.class);
-        intent.putExtra("dateLong", dateNum);
-        intent.putExtra("event", eventName);
-        startActivity(intent);
+        Intent intent = new Intent(EventDetailsActivity.this, DayActivity.class);
+        intent.putExtra("event", eventID);
+        startActivityForResult(intent, EVENT_MODIFIED);
     }
 
     public void deleteEvent(View v){
-        Boolean deleted = db.deleteEvent(eventTitle.getText().toString(), String.valueOf(dateNum));
+        Boolean deleted = db.deleteEvent(eventID);
         if(deleted){
             Toast.makeText(EventDetailsActivity.this, "Event deleted!", Toast.LENGTH_LONG).show();
-            finish();
 
-            Intent returnToDayView = new Intent(EventDetailsActivity.this, DayActivity.class);
-            returnToDayView.putExtra("longDate", dateNum);
-            returnToDayView.putExtra("date", getIntent().getStringExtra("date"));
-            startActivity(returnToDayView);
+            Intent returnToDayMain = new Intent(EventDetailsActivity.this, MainActivity.class);
+            startActivity(returnToDayMain);
+
+            this.finish();
+
         }else{
             Toast.makeText(EventDetailsActivity.this, "Deletion Failed!", Toast.LENGTH_LONG).show();
         }
-    }*/
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // Check which request we're responding to
+        if (requestCode == EVENT_MODIFIED) {
+            if(resultCode==RESULT_OK){
+                setEventInfo(eventID);
+            }
+        }
+    }
 
 }

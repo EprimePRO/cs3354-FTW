@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
@@ -25,12 +26,13 @@ import java.util.List;
 import java.util.Map;
 
 public class DayActivity extends AppCompatActivity {
-    TextView editTitle, editDesc, showDate;
+    EditText editTitle, editDesc, showDate;
     Button addEventButton, setStartTimeButton,
             setEndTimeButton, setStartDateButton, setEndDateButton;
     DatabaseHelper myDb;
     Event event;
     long dateNum;
+    int id;
     Cursor res;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,93 +53,83 @@ public class DayActivity extends AppCompatActivity {
 
         addEventButton = findViewById(R.id.addEventButton);
 
-        //initialize event
-        event = new Event();
+        id = getIntent().getIntExtra("event", -1);
+
+        if(id>=0){
+
+            addEventButton.setText(getString(R.string.button_update));
+            event = myDb.getEvent(id);
+
+            editTitle.setText(event.getTitle());
+            editDesc.setText(event.getDescription());
+            setStartDateButton.setText(event.getStartDateMMDDYY());
+            setStartTimeButton.setText(event.getStartTime());
+            setEndDateButton.setText(event.getEndDateMMDDYY());
+            setEndTimeButton.setText(event.getEndTime());
+
+        }else {
+            //initialize event
+            event = new Event();
 
 
-        //addData();
+            //addData();
 
-        //gets date sent through intent, default value is the current date
-        dateNum = getIntent().getLongExtra("longDate", 0);
+            //gets date sent through intent, default value is the current date
+            dateNum = getIntent().getLongExtra("longDate", 0);
 
-        final Calendar cal = Calendar.getInstance();
-        cal.setTimeInMillis(dateNum);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        event.setStartDate(cal.getTimeInMillis());
-        setStartDateButton.setText(event.getStartDateMMDDYY());
-        setStartTimeButton.setText(event.getStartTime());
+            final Calendar cal = Calendar.getInstance();
+            cal.setTimeInMillis(dateNum);
+            cal.set(Calendar.HOUR_OF_DAY, 0);
+            cal.set(Calendar.MINUTE, 0);
+            event.setStartDate(cal.getTimeInMillis());
+            setStartDateButton.setText(event.getStartDateMMDDYY());
+            setStartTimeButton.setText(event.getStartTime());
 
-        cal.setTimeInMillis(dateNum);
-        cal.set(Calendar.HOUR_OF_DAY, 23);
-        cal.set(Calendar.MINUTE, 59);
-        event.setEndDate(cal.getTimeInMillis());
-        setEndDateButton.setText(event.getEndDateMMDDYY());
-        setEndTimeButton.setText(event.getEndTime());
-        if(dateNum > 0){
-            //showDate.setText(date);
+            cal.setTimeInMillis(dateNum);
+            cal.set(Calendar.HOUR_OF_DAY, 23);
+            cal.set(Calendar.MINUTE, 59);
+            event.setEndDate(cal.getTimeInMillis());
+            setEndDateButton.setText(event.getEndDateMMDDYY());
+            setEndTimeButton.setText(event.getEndTime());
         }
-
-        //call method to display events
-        //build array based on result set from sql query
-        /*Cursor res;
-        res = myDb.getEventsByDate(event.getDay());
-        if (res.getCount() == 0) {
-            //show message
-            //no events on this date
-        }
-
-        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
-        while (res.moveToNext()) {
-            //add all contents to the array
-            Map<String, String> mMap = new HashMap<>();
-            mMap.put("title", res.getString(0));
-            mMap.put("description", res.getString(1));
-            list.add(mMap);
-        }
-
-        SimpleAdapter simpleAdapter = new SimpleAdapter(this, list, android.R.layout.simple_list_item_2, new String[] {"title", "description"}, new int[] {android.R.id.text1, android.R.id.text2});
-
-        ListView eventList = findViewById(R.id.eventList);
-        eventList.setAdapter(simpleAdapter);
-
-        Log.d("DATENUM", dateNum + "");
-
-        eventList.setOnItemClickListener(new OnItemClickListener()
-        {
-            @Override
-            public void onItemClick(AdapterView<?> adapter, View v, int position, long id)
-            {
-                Map value = (Map)adapter.getItemAtPosition(position);
-                // assuming string and if you want to get the value on click of list item
-                // do what you intend to do on click of listview row
-                Intent intent = new Intent(DayActivity.this, EventDetailsActivity.class);
-                intent.putExtra("event", (String)value.get("title"));
-                intent.putExtra("dateLong", dateNum);
-                //intent.putExtra("date", date);
-                startActivity(intent);
-            }
-        });*/
 
     }
 
 
     public void addData(View v) {
-        if(editTitle.getText().toString().isEmpty()){
-            Toast.makeText(DayActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
-        }else{
-            //set title and description for event
-            event.setTitle(String.valueOf(editTitle.getText()));
-            event.setDescription(String.valueOf(editDesc.getText()));
+        if(id>=0) {
+            if (editTitle.getText().toString().isEmpty()) {
+                Toast.makeText(DayActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
+            } else {
+                //set title and description for event
+                event.setTitle(String.valueOf(editTitle.getText()));
+                event.setDescription(String.valueOf(editDesc.getText()));
 
-            boolean isInserted = myDb.insertData(event);
-            if (isInserted) {
-                Toast.makeText(DayActivity.this, "Event added!", Toast.LENGTH_LONG).show();
-                finish();
-                startActivity(getIntent());
+                int numModified = myDb.editData(event);
+                if (numModified == 1) {
+                    Toast.makeText(DayActivity.this, "Event updated!", Toast.LENGTH_LONG).show();
+                    Intent returnIntent = new Intent();
+                    setResult(RESULT_OK, returnIntent);
+                    finish();
+                } else {
+                    Toast.makeText(DayActivity.this, "Error!, Event not modified!", Toast.LENGTH_LONG).show();
+                }
             }
-            else {
-                Toast.makeText(DayActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
+        }else{
+            if (editTitle.getText().toString().isEmpty()) {
+                Toast.makeText(DayActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
+            } else {
+                //set title and description for event
+                event.setTitle(String.valueOf(editTitle.getText()));
+                event.setDescription(String.valueOf(editDesc.getText()));
+
+                boolean isInserted = myDb.insertData(event);
+                if (isInserted) {
+                    Toast.makeText(DayActivity.this, "Event added!", Toast.LENGTH_LONG).show();
+                    finish();
+                } else {
+                    Toast.makeText(DayActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
+                }
             }
         }
     }

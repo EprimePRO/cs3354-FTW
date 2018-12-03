@@ -31,12 +31,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.ftw.calendar_app.DayActivity" />
         </activity>
-        <activity android:name=".EditEventActivity"
-            android:parentActivityName=".EventDetailsActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ftw.calendar_app.EventDetailsActivity" />
-        </activity>
     </application>
 
 </manifest>

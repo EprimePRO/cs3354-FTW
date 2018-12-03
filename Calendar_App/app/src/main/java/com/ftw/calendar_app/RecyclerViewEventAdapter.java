@@ -73,7 +73,6 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
                 Log.d(TAG, "onClick: clicked on: " + mEvents.get(i).getTitle());
                 Intent intent = new Intent(context, EventDetailsActivity.class);
                 intent.putExtra("event", mEvents.get(i).getDatabaseID());
-
                 context.startActivity(intent);
             }
         });
