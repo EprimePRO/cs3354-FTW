@@ -1,9 +1,7 @@
-package com.ftw.calendar_app;
+package com.ftw.calendar_app.Activity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.nfc.FormatException;
-import android.nfc.Tag;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
@@ -15,6 +13,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
+
+import com.ftw.calendar_app.Database.DatabaseHelper;
+import com.ftw.calendar_app.Event.Event;
+import com.ftw.calendar_app.R;
+import com.ftw.calendar_app.RecyclerViewEventAdapter;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -131,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_add_event) {
-            Intent intent = new Intent(MainActivity.this, DayActivity.class);
+            Intent intent = new Intent(MainActivity.this, AddModifyActivity.class);
             intent.putExtra("longDate", selectedDate);
             Log.d(TAG, selectedDate + "");
             startActivity(intent);

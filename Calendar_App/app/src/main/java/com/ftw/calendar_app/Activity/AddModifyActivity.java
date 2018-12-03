@@ -1,4 +1,4 @@
-package com.ftw.calendar_app;
+package com.ftw.calendar_app.Activity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
@@ -6,26 +6,20 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.ftw.calendar_app.Database.DatabaseHelper;
+import com.ftw.calendar_app.Event.Event;
+import com.ftw.calendar_app.R;
 
-public class DayActivity extends AppCompatActivity {
+import java.util.Calendar;
+
+public class AddModifyActivity extends AppCompatActivity {
     EditText editTitle, editDesc, showDate;
     Button addEventButton, setStartTimeButton,
             setEndTimeButton, setStartDateButton, setEndDateButton;
@@ -37,9 +31,9 @@ public class DayActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.event);
+        setContentView(R.layout.layout_add_modify);
 
-        //Toast.makeText(DayActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
+        //Toast.makeText(AddModifyActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
         //load database helper
         myDb = new DatabaseHelper(this);
 
@@ -99,7 +93,7 @@ public class DayActivity extends AppCompatActivity {
     public void addData(View v) {
         if(id>=0) {
             if (editTitle.getText().toString().isEmpty()) {
-                Toast.makeText(DayActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
             } else {
                 //set title and description for event
                 event.setTitle(String.valueOf(editTitle.getText()));
@@ -107,17 +101,17 @@ public class DayActivity extends AppCompatActivity {
 
                 int numModified = myDb.editData(event);
                 if (numModified == 1) {
-                    Toast.makeText(DayActivity.this, "Event updated!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddModifyActivity.this, "Event updated!", Toast.LENGTH_LONG).show();
                     Intent returnIntent = new Intent();
                     setResult(RESULT_OK, returnIntent);
                     finish();
                 } else {
-                    Toast.makeText(DayActivity.this, "Error!, Event not modified!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddModifyActivity.this, "Error!, Event not modified!", Toast.LENGTH_LONG).show();
                 }
             }
         }else{
             if (editTitle.getText().toString().isEmpty()) {
-                Toast.makeText(DayActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
             } else {
                 //set title and description for event
                 event.setTitle(String.valueOf(editTitle.getText()));
@@ -125,10 +119,10 @@ public class DayActivity extends AppCompatActivity {
 
                 boolean isInserted = myDb.insertData(event);
                 if (isInserted) {
-                    Toast.makeText(DayActivity.this, "Event added!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddModifyActivity.this, "Event added!", Toast.LENGTH_LONG).show();
                     finish();
                 } else {
-                    Toast.makeText(DayActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(AddModifyActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
                 }
             }
         }
@@ -138,7 +132,7 @@ public class DayActivity extends AppCompatActivity {
         final Calendar c = Calendar.getInstance();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePicker = new TimePickerDialog(DayActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePicker = new TimePickerDialog(AddModifyActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 event.setStartHour(hourOfDay);
@@ -153,7 +147,7 @@ public class DayActivity extends AppCompatActivity {
         final Calendar c = Calendar.getInstance();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
-        TimePickerDialog timePicker = new TimePickerDialog(DayActivity.this, new TimePickerDialog.OnTimeSetListener() {
+        TimePickerDialog timePicker = new TimePickerDialog(AddModifyActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 event.setEndHour(hourOfDay);
@@ -169,7 +163,7 @@ public class DayActivity extends AppCompatActivity {
         final int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog datePicker = new DatePickerDialog(DayActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePicker = new DatePickerDialog(AddModifyActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 event.setStartDate(year, month, dayOfMonth);
@@ -184,7 +178,7 @@ public class DayActivity extends AppCompatActivity {
         final int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
-        DatePickerDialog datePicker = new DatePickerDialog(DayActivity.this, new DatePickerDialog.OnDateSetListener() {
+        DatePickerDialog datePicker = new DatePickerDialog(AddModifyActivity.this, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 event.setEndDate(year, month, dayOfMonth);

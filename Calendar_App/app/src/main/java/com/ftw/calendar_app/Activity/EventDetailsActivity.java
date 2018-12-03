@@ -1,4 +1,4 @@
-package com.ftw.calendar_app;
+package com.ftw.calendar_app.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,6 +7,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ftw.calendar_app.Database.DatabaseHelper;
+import com.ftw.calendar_app.Event.Event;
+import com.ftw.calendar_app.R;
 
 public class EventDetailsActivity extends AppCompatActivity {
 
@@ -53,7 +57,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     public void editEvent(View v){
         //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
-        Intent intent = new Intent(EventDetailsActivity.this, DayActivity.class);
+        Intent intent = new Intent(EventDetailsActivity.this, AddModifyActivity.class);
         intent.putExtra("event", eventID);
         startActivityForResult(intent, EVENT_MODIFIED);
     }

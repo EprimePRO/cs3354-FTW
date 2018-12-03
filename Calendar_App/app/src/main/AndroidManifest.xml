@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,17 +19,17 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DayActivity"
-            android:parentActivityName=".MainActivity">
+            android:name=".Activity.AddModifyActivity"
+            android:parentActivityName=".Activity.MainActivity">
         </activity>
         <activity
-            android:name=".EventDetailsActivity"
+            android:name=".Activity.EventDetailsActivity"
             android:label="@string/title_activity_event_details"
-            android:parentActivityName=".DayActivity"
+            android:parentActivityName=".Activity.AddModifyActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.ftw.calendar_app.DayActivity" />
+                android:value="com.ftw.calendar_app.Activity.AddModifyActivity" />
         </activity>
     </application>
 

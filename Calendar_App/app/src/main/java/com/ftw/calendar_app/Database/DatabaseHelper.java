@@ -1,4 +1,4 @@
-package com.ftw.calendar_app;
+package com.ftw.calendar_app.Database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,7 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import java.util.ArrayList;
+import com.ftw.calendar_app.Event.Event;
+
 import java.util.Calendar;
 
 public class DatabaseHelper extends SQLiteOpenHelper {

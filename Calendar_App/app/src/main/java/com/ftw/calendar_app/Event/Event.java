@@ -1,4 +1,4 @@
-package com.ftw.calendar_app;
+package com.ftw.calendar_app.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

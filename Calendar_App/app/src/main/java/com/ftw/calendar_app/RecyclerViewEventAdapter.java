@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.ftw.calendar_app.Activity.EventDetailsActivity;
+import com.ftw.calendar_app.Event.Event;
 
 import java.util.ArrayList;
 
