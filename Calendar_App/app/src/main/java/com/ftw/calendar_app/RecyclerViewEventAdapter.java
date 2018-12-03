@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -38,6 +37,20 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
         this.context = context;
     }
 
+    public void swap(ArrayList<Event> newEvents)
+    {
+        if(newEvents == null || newEvents.size()==0) {
+            mEvents.clear();
+            notifyDataSetChanged();
+            return;
+        }
+        if (mEvents != null && mEvents.size()>0)
+            mEvents.clear();
+        mEvents.addAll(newEvents);
+        notifyDataSetChanged();
+
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
@@ -50,7 +63,7 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
     public void onBindViewHolder(@NonNull ViewHolder holder, final int i) {
         Log.d(TAG, "onbindViewHolder: called.");
         holder.title.setText(mEvents.get(i).getTitle());
-        holder.time.setText(mEvents.get(i).getTime());
+        holder.time.setText(mEvents.get(i).getStartTime());
 
         /*holder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override

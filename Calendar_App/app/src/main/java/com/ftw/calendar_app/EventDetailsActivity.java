@@ -30,21 +30,21 @@ public class EventDetailsActivity extends AppCompatActivity {
 
         dateNum = intent.getLongExtra("dateLong", Calendar.getInstance().getTimeInMillis());
         eventName = intent.getStringExtra("event");
-        Cursor cursor = db.getEvent(eventName, String.valueOf(dateNum));
+        //Cursor cursor = db.getEvent(eventName, String.valueOf(dateNum));
 
         eventTitle = (TextView) findViewById(R.id.eventTitle);
         eventDescription = (TextView) findViewById(R.id.eventDescription);
         startTime = (TextView) findViewById(R.id.startTime);
         endTime = (TextView) findViewById(R.id.endTime);
-        cursor.moveToNext();
+        /*cursor.moveToNext();
         eventTitle.setText(cursor.getString(0));
         eventDescription.setText(cursor.getString(1));
         startTime.setText(cursor.getString(2) + " " + cursor.getString(4));
-        endTime.setText(cursor.getString(3) + " " + cursor.getString(5));
+        endTime.setText(cursor.getString(3) + " " + cursor.getString(5));*/
 
     }
 
-    public void editEvent(View v){
+    /*public void editEvent(View v){
         //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
         Intent intent = new Intent(EventDetailsActivity.this, EditEventActivity.class);
         intent.putExtra("dateLong", dateNum);
@@ -65,6 +65,6 @@ public class EventDetailsActivity extends AppCompatActivity {
         }else{
             Toast.makeText(EventDetailsActivity.this, "Deletion Failed!", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 
 }

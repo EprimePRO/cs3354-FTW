@@ -43,7 +43,7 @@ public class EditEventActivity extends AppCompatActivity {
         eventName = intent.getStringExtra("event");
 
         //get event details from database
-        Cursor cursor = db.getEvent(eventName, String.valueOf(dateNum));
+        //Cursor cursor = db.getEvent(eventName, String.valueOf(dateNum));
 
         //get views by id
         eventTitle = (EditText) findViewById(R.id.eventTextTitle);
@@ -63,7 +63,7 @@ public class EditEventActivity extends AppCompatActivity {
         endPeriod.setAdapter(adapterPeriods);
 
         //set the views to the event's current values
-        cursor.moveToNext();
+        /*cursor.moveToNext();
         eventTitle.setText(cursor.getString(0));
         eventDescription.setText(cursor.getString(1));
         int position = 0;
@@ -94,10 +94,10 @@ public class EditEventActivity extends AppCompatActivity {
                 break;
             }
         }
-        endPeriod.setSelection(position);
+        endPeriod.setSelection(position);*/
     }
 
-    public void updateEvent(View v){
+    /*public void updateEvent(View v){
         int result = db.editData(String.valueOf(dateNum), String.valueOf(eventTitle.getText()),
                 String.valueOf(eventDescription.getText()), String.valueOf(startTime.getSelectedItem()), String.valueOf(endTime.getSelectedItem()),
                 String.valueOf(startPeriod.getSelectedItem()), String.valueOf(endPeriod.getSelectedItem()));
@@ -109,5 +109,5 @@ public class EditEventActivity extends AppCompatActivity {
         }else{
             Toast.makeText(EditEventActivity.this, "Error, Event not updated!", Toast.LENGTH_LONG).show();
         }
-    }
+    }*/
 }
