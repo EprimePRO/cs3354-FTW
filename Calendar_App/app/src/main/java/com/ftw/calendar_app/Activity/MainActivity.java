@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ftw.calendar_app.Database.DatabaseHelper;
 import com.ftw.calendar_app.Event.Event;
@@ -92,21 +93,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        calendarView = findViewById(R.id.calendarView);
-
-        String passedDate = getIntent().getStringExtra("date");
-        //long dateNumber = getIntent().getLongExtra("longDate", Calendar.getInstance().getTimeInMillis());
-        long dateNumber = getIntent().getLongExtra("longDate", 0);
-
-        Log.d("RESUME", dateNumber + "");
-
-        if(passedDate!=null && dateNumber > 0){
-            myDate.setText(passedDate);
-            calendarView.setDate(dateNumber);
-        }
-        else if (dateNumber == 0) {
-            calendarView.setDate(Calendar.getInstance().getTimeInMillis());
-        }
+        mEvents = getmEventsOnDate(date);
+        mRecyclerAdapter.swap(mEvents);
 
     }
 

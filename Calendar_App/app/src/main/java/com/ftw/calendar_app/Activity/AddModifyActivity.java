@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -20,7 +21,9 @@ import com.ftw.calendar_app.R;
 import java.util.Calendar;
 
 public class AddModifyActivity extends AppCompatActivity {
-    EditText editTitle, editDesc, showDate;
+    EditText editTitle, editDesc;
+    TextView addOrModifyText;
+    final String modifyEvent = "Modify Event";
     Button addEventButton, setStartTimeButton,
             setEndTimeButton, setStartDateButton, setEndDateButton;
     DatabaseHelper myDb;
@@ -38,6 +41,7 @@ public class AddModifyActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
         //load views
+        addOrModifyText = findViewById(R.id.addOrModifyEventText);
         editTitle = findViewById(R.id.eventTextTitle);
         editDesc = findViewById(R.id.eventTextDesc);
         setStartDateButton = findViewById(R.id.setStartDate);
@@ -52,6 +56,7 @@ public class AddModifyActivity extends AppCompatActivity {
         if(id>=0){
 
             addEventButton.setText(getString(R.string.button_update));
+            addOrModifyText.setText(modifyEvent);
             event = myDb.getEvent(id);
 
             editTitle.setText(event.getTitle());

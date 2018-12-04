@@ -86,6 +86,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     /**
+     * date should be formated yyyy.MM.dd
      * col 0 = title col 1 = desc col 2 = startDate col 3 = end Date col 4 = id
     */
     public Cursor getEventsByDate(String date) {
