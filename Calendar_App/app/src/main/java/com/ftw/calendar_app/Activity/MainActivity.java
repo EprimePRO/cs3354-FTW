@@ -56,14 +56,6 @@ public class MainActivity extends AppCompatActivity {
         myDb = new DatabaseHelper(this);
 
         calendarView = findViewById(R.id.calendarView);
-        final Calendar calendar = Calendar.getInstance();
-
-
-        int m = calendar.get(Calendar.MONTH);
-        int d = calendar.get(Calendar.DAY_OF_MONTH);
-        int y = calendar.get(Calendar.YEAR);
-
-        date = (m+1) + "/" + d + "/" + y;
 
         //Set first day of the week to Sunday
         calendarView.setFirstDayOfWeek(1);
