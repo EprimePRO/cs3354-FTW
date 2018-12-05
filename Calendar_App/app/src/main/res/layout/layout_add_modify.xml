@@ -176,4 +176,76 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RadioGroup
+        android:id="@+id/colorRadioGroup"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setEndTime">
+
+        <RadioButton
+            android:id="@+id/colorWhiteRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/darker_gray"
+            android:checked="false"
+            android:text="White"
+            android:textSize="16sp"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/colorRedRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/holo_red_light"
+            android:checked="false"
+            android:text="Red"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/colorGreenRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/holo_green_light"
+            android:checked="false"
+            android:text="Green"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/colorBlueRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/holo_blue_light"
+            android:checked="false"
+            android:text="Blue"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:onClick="onRadioButtonClicked"/>
+
+        <RadioButton
+            android:id="@+id/colorGrayRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:buttonTint="@android:color/darker_gray"
+            android:checked="false"
+            android:text="Gray"
+            android:textAlignment="viewStart"
+            android:textSize="16sp"
+            android:onClick="onRadioButtonClicked"/>
+
+    </RadioGroup>
+
 </android.support.constraint.ConstraintLayout>

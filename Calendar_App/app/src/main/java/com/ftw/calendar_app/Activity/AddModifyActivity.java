@@ -63,7 +63,8 @@ public class AddModifyActivity extends AppCompatActivity {
         }else {
             //initialize event
             event = new Event();
-
+            //set default color to white
+            event.setColor(android.R.color.white);
 
             //addData();
 
@@ -82,8 +83,6 @@ public class AddModifyActivity extends AppCompatActivity {
             calEnd.set(Calendar.MINUTE, 59);
             event.setEndDate(calEnd.getTimeInMillis());
         }
-
-
 
         setStartDateButton.setText(event.getStartDateMMDDYY());
         setStartTimeButton.setText(event.getStartTime());
@@ -204,4 +203,32 @@ public class AddModifyActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * when a radio button is called this sets the appropriate color to event
+     *
+     * @param view Android view
+     */
+    public void onRadioButtonClicked(View view) {
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.colorWhiteRadioButton:
+                // set event color
+                event.setColor(android.R.color.white);
+                break;
+            case R.id.colorRedRadioButton:
+                event.setColor(android.R.color.holo_red_light);
+                break;
+            case R.id.colorGreenRadioButton:
+                event.setColor(android.R.color.holo_green_light);
+                break;
+            case R.id.colorBlueRadioButton:
+                event.setColor(android.R.color.holo_blue_light);
+                break;
+            case R.id.colorGrayRadioButton:
+                event.setColor(android.R.color.darker_gray);
+                break;
+        }
+    }
 }
