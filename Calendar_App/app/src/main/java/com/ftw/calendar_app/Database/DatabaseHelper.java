@@ -105,7 +105,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     */
     public Cursor getEventsByDate(String date) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.query(TABLE_NAME, new String[] {COL_3, COL_4, COL_1, COL_2, ID, COLOR}, DAY+" = '"+date+"'", null, null, null, null);
+        Cursor res = db.query(TABLE_NAME, new String[] {COL_3, COL_4, COL_1, COL_2, ID, COLOR}, DAY+" = '"+date+"'", null, null, null, COL_1+" ASC");
         return res;
     }
 

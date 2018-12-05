@@ -15,6 +15,7 @@ import com.ftw.calendar_app.R;
 public class EventDetailsActivity extends AppCompatActivity {
 
     TextView eventTitle, eventDescription, startTime, endTime;
+    View colorView;
     DatabaseHelper db;
     int eventID;
 
@@ -34,6 +35,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         eventDescription = findViewById(R.id.eventDescription);
         startTime = findViewById(R.id.startTime);
         endTime = findViewById(R.id.endTime);
+        colorView = findViewById(R.id.colorView);
 
 
         eventID = intent.getIntExtra("event", 0);
@@ -52,6 +54,7 @@ public class EventDetailsActivity extends AppCompatActivity {
             String end = event.getEndDateMMDDYY()+ " at "+event.getEndTime();
             startTime.setText(start);
             endTime.setText(end);
+            colorView.setBackgroundResource(event.getColor());
         }
     }
 
