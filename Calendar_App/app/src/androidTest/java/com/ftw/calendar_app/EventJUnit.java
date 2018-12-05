@@ -1,5 +1,6 @@
 package com.ftw.calendar_app;
 
+import com.ftw.calendar_app.Database.DatabaseHelper;
 import com.ftw.calendar_app.Event.Event;
 
 import org.junit.Before;
@@ -14,50 +15,43 @@ import static org.junit.Assert.*;
 public class EventJUnit {
     private Event tester;
     private Calendar calendar;
+    private Date date;
 
     @Before
     public void setup(){
         tester = new Event();
         calendar = Calendar.getInstance();
+        date = new GregorianCalendar(2019, Calendar.AUGUST, 1).getTime();
     }
 
     // JUnit test method to test getStartDate
     @Test
     public void testStart(){
-        tester.setStartDate(2019,8,1);
-        Date date = new GregorianCalendar(2019, Calendar.AUGUST, 1).getTime();
+        tester.setStartDate(date.getTime());
         calendar.setTime(date);
         assertEquals(calendar, tester.getStartDate());
     }
 
     // JUnit test method to test getEndDate
-    /*@Test
+    @Test
     public void testEnd(){
-        editEvent = new Event();
-        editEvent.setTitle("Default Dance");
-        tester.insertData(editEvent);
-        assertEquals("Default Dance", editEvent.getTitle());
-
-        editEvent.setTitle("Orange Justice");
-        assertEquals("Edit Event",1, tester.editData(editEvent));
-        assertEquals("Orange Justice", editEvent.getTitle());
+        tester.setEndDate(date.getTime());
+        calendar.setTime(date);
+        assertEquals(calendar, tester.getEndDate());
     }
 
     // JUnit test method to test getTitle
     @Test
     public void testTitle(){
-        editEvent2 = new Event();
-        assertEquals("Edit Event",0, tester.editData(editEvent2));
+        tester.setTitle("My Birthday");
+        assertEquals("My Birthday", tester.getTitle());
     }
 
     // JUnit test method to test getDescription
     @Test
     public void testDescription(){
-        deleteEvent = new Event();
-        deleteEvent.setTitle("You should not see this");
-        tester.insertData(deleteEvent);
-
-        assertTrue("Deleting Event", tester.deleteEvent(deleteEvent.getDatabaseID()));
-    }*/
+        tester.setDescription("Today is the day I was born");
+        assertEquals("Today is the day I was born", tester.getDescription());
+    }
 }
 
