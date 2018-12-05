@@ -12,7 +12,7 @@ public class Event {
     private String title;
     private String description;
 
-    int color;
+    private int color;
 
     private int databaseID;
 
@@ -30,12 +30,13 @@ public class Event {
         this.description = description;
     }
 
-    public Event(Calendar start, Calendar end, String title, String description, int key){
+    public Event(Calendar start, Calendar end, String title, String description, int key, int color){
         startDate = start;
         endDate = end;
         this.title = title;
         this.description = description;
         databaseID = key;
+        this.color = color;
     }
 
     public String getStartTime(){

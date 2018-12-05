@@ -68,6 +68,7 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
         Log.d(TAG, "onbindViewHolder: called.");
         holder.title.setText(mEvents.get(i).getTitle());
         holder.time.setText(mEvents.get(i).getStartTime());
+        holder.title.setColo(mEvents.get(i).getColor());
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener(){
             @Override

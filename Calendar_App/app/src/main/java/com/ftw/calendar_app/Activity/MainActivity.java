@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
             endDate.setTimeInMillis(res.getLong(3));
 
             Event tempEvent = new Event(startDate, endDate, res.getString(0),
-                    res.getString( 1), res.getInt(4));
+                    res.getString( 1), res.getInt(4), res.getInt(5));
 
             events.add(tempEvent);
 
