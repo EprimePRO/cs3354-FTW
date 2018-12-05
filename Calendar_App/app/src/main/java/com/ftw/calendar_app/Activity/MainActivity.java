@@ -2,8 +2,8 @@ package com.ftw.calendar_app.Activity;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CalendarView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.ftw.calendar_app.Database.DatabaseHelper;
 import com.ftw.calendar_app.Event.Event;
@@ -27,7 +26,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
-    
+
     //log Tag
     private static final String TAG = "MainActivity";
 
@@ -71,14 +70,14 @@ public class MainActivity extends AppCompatActivity {
             public void onSelectedDayChange(CalendarView calendarView, int year, int month, int dayOfMonth) {
 
                 selectedDate = calendarView.getDate();
-                date = (month+1) + "/" + dayOfMonth + "/" + year;
+                date = (month + 1) + "/" + dayOfMonth + "/" + year;
                 try {
                     selectedDate = new SimpleDateFormat("MM/dd/yyyy").parse(date).getTime();
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
 
-                date =  new SimpleDateFormat("yyyy.MM.dd").format(new Date(selectedDate));
+                date = new SimpleDateFormat("yyyy.MM.dd").format(new Date(selectedDate));
 
                 mEvents = getmEventsOnDate(date);
 
@@ -124,10 +123,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    ArrayList<Event> getmEventsOnDate(String date){
+    ArrayList<Event> getmEventsOnDate(String date) {
         Cursor res = myDb.getEventsByDate(date);
         ArrayList<Event> events = new ArrayList<>();
-        while(res.moveToNext()){
+        while (res.moveToNext()) {
             Calendar startDate = Calendar.getInstance();
             Calendar endDate = Calendar.getInstance();
 
@@ -135,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
             endDate.setTimeInMillis(res.getLong(3));
 
             Event tempEvent = new Event(startDate, endDate, res.getString(0),
-                    res.getString( 1), res.getInt(4), res.getInt(5));
+                    res.getString(1), res.getInt(4), res.getInt(5));
 
             events.add(tempEvent);
 
@@ -143,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
         return events;
     }
 
-    void initRecyclerView(){
+    void initRecyclerView() {
         Log.d(TAG, "initRecyclerView: init recyclerView");
         mRecyclerView = findViewById(R.id.eventList);
         mRecyclerAdapter = new RecyclerViewEventAdapter(mEvents, this);

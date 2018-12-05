@@ -44,30 +44,30 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     }
 
-    public void setEventInfo(int eventID){
+    public void setEventInfo(int eventID) {
         Event event = db.getEvent(eventID);
 
-        if(event!= null){
+        if (event != null) {
             eventTitle.setText(event.getTitle());
             eventDescription.setText(event.getDescription());
-            String start = event.getStartDateMMDDYY()+ " at "+event.getStartTime();
-            String end = event.getEndDateMMDDYY()+ " at "+event.getEndTime();
+            String start = event.getStartDateMMDDYY() + " at " + event.getStartTime();
+            String end = event.getEndDateMMDDYY() + " at " + event.getEndTime();
             startTime.setText(start);
             endTime.setText(end);
             colorView.setBackgroundResource(event.getColor());
         }
     }
 
-    public void editEvent(View v){
+    public void editEvent(View v) {
         //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
         Intent intent = new Intent(EventDetailsActivity.this, AddModifyActivity.class);
         intent.putExtra("event", eventID);
         startActivityForResult(intent, EVENT_MODIFIED);
     }
 
-    public void deleteEvent(View v){
+    public void deleteEvent(View v) {
         Boolean deleted = db.deleteEvent(eventID);
-        if(deleted){
+        if (deleted) {
             Toast.makeText(EventDetailsActivity.this, "Event deleted!", Toast.LENGTH_LONG).show();
 
             Intent returnToDayMain = new Intent(EventDetailsActivity.this, MainActivity.class);
@@ -75,7 +75,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
             this.finish();
 
-        }else{
+        } else {
             Toast.makeText(EventDetailsActivity.this, "Deletion Failed!", Toast.LENGTH_LONG).show();
         }
     }
@@ -84,7 +84,7 @@ public class EventDetailsActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         // Check which request we're responding to
         if (requestCode == EVENT_MODIFIED) {
-            if(resultCode==RESULT_OK){
+            if (resultCode == RESULT_OK) {
                 setEventInfo(eventID);
             }
         }

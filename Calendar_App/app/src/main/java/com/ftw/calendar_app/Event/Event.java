@@ -16,21 +16,21 @@ public class Event {
 
     private int databaseID;
 
-    public Event(){
+    public Event() {
         startDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
         title = "";
         description = "";
     }
 
-    public Event(Calendar start, Calendar end, String title, String description){
+    public Event(Calendar start, Calendar end, String title, String description) {
         startDate = start;
         endDate = end;
         this.title = title;
         this.description = description;
     }
 
-    public Event(Calendar start, Calendar end, String title, String description, int key, int color){
+    public Event(Calendar start, Calendar end, String title, String description, int key, int color) {
         startDate = start;
         endDate = end;
         this.title = title;
@@ -39,7 +39,7 @@ public class Event {
         this.color = color;
     }
 
-    public String getStartTime(){
+    public String getStartTime() {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         return timeFormat.format(startDate.getTime());
     }
