@@ -93,7 +93,7 @@ public class Event {
     }
 
     public void setStartHour(int hourOfDay) {
-        startDate.set(Calendar.HOUR, hourOfDay);
+        startDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
     }
 
     public void setStartMinute(int minute) {
@@ -101,7 +101,7 @@ public class Event {
     }
 
     public void setEndHour(int hourOfDay) {
-        endDate.set(Calendar.HOUR, hourOfDay);
+        endDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
     }
 
     public void setEndMinute(int minute) {

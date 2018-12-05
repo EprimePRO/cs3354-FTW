@@ -30,8 +30,6 @@ public class AddModifyActivity extends AppCompatActivity {
     Event event;
     long dateNum;
     int id;
-    Cursor res;
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.layout_add_modify);
@@ -61,10 +59,6 @@ public class AddModifyActivity extends AppCompatActivity {
 
             editTitle.setText(event.getTitle());
             editDesc.setText(event.getDescription());
-            setStartDateButton.setText(event.getStartDateMMDDYY());
-            setStartTimeButton.setText(event.getStartTime());
-            setEndDateButton.setText(event.getEndDateMMDDYY());
-            setEndTimeButton.setText(event.getEndTime());
 
         }else {
             //initialize event
@@ -76,65 +70,65 @@ public class AddModifyActivity extends AppCompatActivity {
             //gets date sent through intent, default value is the current date
             dateNum = getIntent().getLongExtra("longDate", 0);
 
-            final Calendar cal = Calendar.getInstance();
-            cal.setTimeInMillis(dateNum);
-            cal.set(Calendar.HOUR_OF_DAY, 0);
-            cal.set(Calendar.MINUTE, 0);
-            event.setStartDate(cal.getTimeInMillis());
-            setStartDateButton.setText(event.getStartDateMMDDYY());
-            setStartTimeButton.setText(event.getStartTime());
+            final Calendar calStart = Calendar.getInstance();
+            calStart.setTimeInMillis(dateNum);
+            calStart.set(Calendar.HOUR_OF_DAY, 0);
+            calStart.set(Calendar.MINUTE, 0);
+            event.setStartDate(calStart.getTimeInMillis());
 
-            cal.setTimeInMillis(dateNum);
-            cal.set(Calendar.HOUR_OF_DAY, 23);
-            cal.set(Calendar.MINUTE, 59);
-            event.setEndDate(cal.getTimeInMillis());
-            setEndDateButton.setText(event.getEndDateMMDDYY());
-            setEndTimeButton.setText(event.getEndTime());
+            final Calendar calEnd = Calendar.getInstance();
+            calEnd.setTimeInMillis(dateNum);
+            calEnd.set(Calendar.HOUR_OF_DAY, 23);
+            calEnd.set(Calendar.MINUTE, 59);
+            event.setEndDate(calEnd.getTimeInMillis());
         }
+
+
+
+        setStartDateButton.setText(event.getStartDateMMDDYY());
+        setStartTimeButton.setText(event.getStartTime());
+        setEndDateButton.setText(event.getEndDateMMDDYY());
+        setEndTimeButton.setText(event.getEndTime());
 
     }
 
 
     public void addData(View v) {
-        if(id>=0) {
-            if (editTitle.getText().toString().isEmpty()) {
-                Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
-            } else {
-                //set title and description for event
-                event.setTitle(String.valueOf(editTitle.getText()));
-                event.setDescription(String.valueOf(editDesc.getText()));
+        if (editTitle.getText().toString().isEmpty()) {
+            Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
+        } else if(event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
+            Toast.makeText(AddModifyActivity.this, "End time cannot be before start!", Toast.LENGTH_LONG).show();
+        } else if(id>=0) {
+            //set title and description for event
+            event.setTitle(String.valueOf(editTitle.getText()));
+            event.setDescription(String.valueOf(editDesc.getText()));
 
-                int numModified = myDb.editData(event);
-                if (numModified == 1) {
-                    Toast.makeText(AddModifyActivity.this, "Event updated!", Toast.LENGTH_LONG).show();
-                    Intent returnIntent = new Intent();
-                    setResult(RESULT_OK, returnIntent);
-                    finish();
-                } else {
-                    Toast.makeText(AddModifyActivity.this, "Error!, Event not modified!", Toast.LENGTH_LONG).show();
-                }
+            int numModified = myDb.editData(event);
+            if (numModified == 1) {
+                Toast.makeText(AddModifyActivity.this, "Event updated!", Toast.LENGTH_LONG).show();
+                Intent returnIntent = new Intent();
+                setResult(RESULT_OK, returnIntent);
+                finish();
+            } else {
+                Toast.makeText(AddModifyActivity.this, "Error!, Event not modified!", Toast.LENGTH_LONG).show();
             }
         }else{
-            if (editTitle.getText().toString().isEmpty()) {
-                Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
-            } else {
-                //set title and description for event
-                event.setTitle(String.valueOf(editTitle.getText()));
-                event.setDescription(String.valueOf(editDesc.getText()));
+            //set title and description for event
+            event.setTitle(String.valueOf(editTitle.getText()));
+            event.setDescription(String.valueOf(editDesc.getText()));
 
-                boolean isInserted = myDb.insertData(event);
-                if (isInserted) {
-                    Toast.makeText(AddModifyActivity.this, "Event added!", Toast.LENGTH_LONG).show();
-                    finish();
-                } else {
-                    Toast.makeText(AddModifyActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
-                }
+            boolean isInserted = myDb.insertData(event);
+            if (isInserted) {
+                Toast.makeText(AddModifyActivity.this, "Event added!", Toast.LENGTH_LONG).show();
+                finish();
+            } else {
+                Toast.makeText(AddModifyActivity.this, "Error!, Event not added!", Toast.LENGTH_LONG).show();
             }
         }
     }
 
     public void setStartTime(View v){
-        final Calendar c = Calendar.getInstance();
+        final Calendar c = event.getStartDate();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         TimePickerDialog timePicker = new TimePickerDialog(AddModifyActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -143,13 +137,18 @@ public class AddModifyActivity extends AppCompatActivity {
                 event.setStartHour(hourOfDay);
                 event.setStartMinute(minute);
                 setStartTimeButton.setText(event.getStartTime());
+                if(event.getStartDate().getTimeInMillis()>event.getEndDate().getTimeInMillis()){
+                    event.setEndDate(event.getStartDate().getTimeInMillis());
+                    setEndDateButton.setText(event.getEndDateMMDDYY());
+                    setEndTimeButton.setText(event.getEndTime());
+                }
             }
         }, hour, minute, false);
         timePicker.show();
     }
 
     public void setEndTime(View v){
-        final Calendar c = Calendar.getInstance();
+        final Calendar c = event.getEndDate();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
         TimePickerDialog timePicker = new TimePickerDialog(AddModifyActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -164,7 +163,7 @@ public class AddModifyActivity extends AppCompatActivity {
     }
 
     public void setStartDate(View v){
-        final Calendar c = Calendar.getInstance();
+        final Calendar c = event.getStartDate();
         final int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
@@ -173,13 +172,18 @@ public class AddModifyActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 event.setStartDate(year, month, dayOfMonth);
                 setStartDateButton.setText(event.getStartDateMMDDYY());
+                if(event.getStartDate().getTimeInMillis()>event.getEndDate().getTimeInMillis()){
+                    event.setEndDate(event.getStartDate().getTimeInMillis());
+                    setEndDateButton.setText(event.getEndDateMMDDYY());
+                    setEndTimeButton.setText(event.getEndTime());
+                }
             }
         }, year, month, dayOfMonth);
         datePicker.show();
     }
 
     public void setEndDate(View v){
-        final Calendar c = Calendar.getInstance();
+        final Calendar c = event.getEndDate();
         final int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
         int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
