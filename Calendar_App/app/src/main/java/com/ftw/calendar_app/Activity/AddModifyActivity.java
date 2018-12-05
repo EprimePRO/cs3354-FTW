@@ -137,7 +137,10 @@ public class AddModifyActivity extends AppCompatActivity {
                 event.setStartMinute(minute);
                 setStartTimeButton.setText(event.getStartTime());
                 if (event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
-                    event.setEndDate(event.getStartDate().getTimeInMillis());
+                    Calendar end = Calendar.getInstance();
+                    end.setTimeInMillis(event.getStartDate().getTimeInMillis());
+                    end.add(Calendar.HOUR_OF_DAY, 1);
+                    event.setEndDate(end);
                     setEndDateButton.setText(event.getEndDateMMDDYY());
                     setEndTimeButton.setText(event.getEndTime());
                 }
@@ -172,7 +175,10 @@ public class AddModifyActivity extends AppCompatActivity {
                 event.setStartDate(year, month, dayOfMonth);
                 setStartDateButton.setText(event.getStartDateMMDDYY());
                 if (event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
-                    event.setEndDate(event.getStartDate().getTimeInMillis());
+                    Calendar end = Calendar.getInstance();
+                    end.setTimeInMillis(event.getStartDate().getTimeInMillis());
+                    end.add(Calendar.HOUR_OF_DAY, 1);
+                    event.setEndDate(end);
                     setEndDateButton.setText(event.getEndDateMMDDYY());
                     setEndTimeButton.setText(event.getEndTime());
                 }
