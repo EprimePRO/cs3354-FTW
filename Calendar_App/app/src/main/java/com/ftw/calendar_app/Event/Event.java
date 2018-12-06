@@ -2,7 +2,6 @@ package com.ftw.calendar_app.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Event {
 
@@ -13,31 +12,34 @@ public class Event {
     private String title;
     private String description;
 
+    private int color;
+
     private int databaseID;
 
-    public Event(){
+    public Event() {
         startDate = Calendar.getInstance();
         endDate = Calendar.getInstance();
         title = "";
         description = "";
     }
 
-    public Event(Calendar start, Calendar end, String title, String description){
+    public Event(Calendar start, Calendar end, String title, String description) {
         startDate = start;
         endDate = end;
         this.title = title;
         this.description = description;
     }
 
-    public Event(Calendar start, Calendar end, String title, String description, int key){
+    public Event(Calendar start, Calendar end, String title, String description, int key, int color) {
         startDate = start;
         endDate = end;
         this.title = title;
         this.description = description;
         databaseID = key;
+        this.color = color;
     }
 
-    public String getStartTime(){
+    public String getStartTime() {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         return timeFormat.format(startDate.getTime());
     }
@@ -45,6 +47,14 @@ public class Event {
     public String getEndTime() {
         SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a");
         return timeFormat.format(endDate.getTime());
+    }
+
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
     }
 
     public Calendar getStartDate() {

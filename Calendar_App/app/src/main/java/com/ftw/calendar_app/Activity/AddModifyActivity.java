@@ -3,7 +3,6 @@ package com.ftw.calendar_app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -30,9 +29,10 @@ public class AddModifyActivity extends AppCompatActivity {
     Event event;
     long dateNum;
     int id;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.layout_add_modify);
+        setContentView(R.layout.activity_add_modify);
 
         //Toast.makeText(AddModifyActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
         //load database helper
@@ -51,7 +51,7 @@ public class AddModifyActivity extends AppCompatActivity {
 
         id = getIntent().getIntExtra("event", -1);
 
-        if(id>=0){
+        if (id >= 0) {
 
             addEventButton.setText(getString(R.string.button_update));
             addOrModifyText.setText(modifyEvent);
@@ -60,10 +60,11 @@ public class AddModifyActivity extends AppCompatActivity {
             editTitle.setText(event.getTitle());
             editDesc.setText(event.getDescription());
 
-        }else {
+        } else {
             //initialize event
             event = new Event();
-
+            //set default color to white
+            event.setColor(android.R.color.white);
 
             //addData();
 
@@ -83,8 +84,6 @@ public class AddModifyActivity extends AppCompatActivity {
             event.setEndDate(calEnd.getTimeInMillis());
         }
 
-
-
         setStartDateButton.setText(event.getStartDateMMDDYY());
         setStartTimeButton.setText(event.getStartTime());
         setEndDateButton.setText(event.getEndDateMMDDYY());
@@ -96,9 +95,9 @@ public class AddModifyActivity extends AppCompatActivity {
     public void addData(View v) {
         if (editTitle.getText().toString().isEmpty()) {
             Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
-        } else if(event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
+        } else if (event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
             Toast.makeText(AddModifyActivity.this, "End time cannot be before start!", Toast.LENGTH_LONG).show();
-        } else if(id>=0) {
+        } else if (id >= 0) {
             //set title and description for event
             event.setTitle(String.valueOf(editTitle.getText()));
             event.setDescription(String.valueOf(editDesc.getText()));
@@ -112,7 +111,7 @@ public class AddModifyActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(AddModifyActivity.this, "Error!, Event not modified!", Toast.LENGTH_LONG).show();
             }
-        }else{
+        } else {
             //set title and description for event
             event.setTitle(String.valueOf(editTitle.getText()));
             event.setDescription(String.valueOf(editDesc.getText()));
@@ -127,7 +126,7 @@ public class AddModifyActivity extends AppCompatActivity {
         }
     }
 
-    public void setStartTime(View v){
+    public void setStartTime(View v) {
         final Calendar c = event.getStartDate();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -137,8 +136,11 @@ public class AddModifyActivity extends AppCompatActivity {
                 event.setStartHour(hourOfDay);
                 event.setStartMinute(minute);
                 setStartTimeButton.setText(event.getStartTime());
-                if(event.getStartDate().getTimeInMillis()>event.getEndDate().getTimeInMillis()){
-                    event.setEndDate(event.getStartDate().getTimeInMillis());
+                if (event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
+                    Calendar end = Calendar.getInstance();
+                    end.setTimeInMillis(event.getStartDate().getTimeInMillis());
+                    end.add(Calendar.HOUR_OF_DAY, 1);
+                    event.setEndDate(end);
                     setEndDateButton.setText(event.getEndDateMMDDYY());
                     setEndTimeButton.setText(event.getEndTime());
                 }
@@ -147,7 +149,7 @@ public class AddModifyActivity extends AppCompatActivity {
         timePicker.show();
     }
 
-    public void setEndTime(View v){
+    public void setEndTime(View v) {
         final Calendar c = event.getEndDate();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
         int minute = c.get(Calendar.MINUTE);
@@ -162,7 +164,7 @@ public class AddModifyActivity extends AppCompatActivity {
         timePicker.show();
     }
 
-    public void setStartDate(View v){
+    public void setStartDate(View v) {
         final Calendar c = event.getStartDate();
         final int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -172,8 +174,11 @@ public class AddModifyActivity extends AppCompatActivity {
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 event.setStartDate(year, month, dayOfMonth);
                 setStartDateButton.setText(event.getStartDateMMDDYY());
-                if(event.getStartDate().getTimeInMillis()>event.getEndDate().getTimeInMillis()){
-                    event.setEndDate(event.getStartDate().getTimeInMillis());
+                if (event.getStartDate().getTimeInMillis() > event.getEndDate().getTimeInMillis()) {
+                    Calendar end = Calendar.getInstance();
+                    end.setTimeInMillis(event.getStartDate().getTimeInMillis());
+                    end.add(Calendar.HOUR_OF_DAY, 1);
+                    event.setEndDate(end);
                     setEndDateButton.setText(event.getEndDateMMDDYY());
                     setEndTimeButton.setText(event.getEndTime());
                 }
@@ -182,7 +187,7 @@ public class AddModifyActivity extends AppCompatActivity {
         datePicker.show();
     }
 
-    public void setEndDate(View v){
+    public void setEndDate(View v) {
         final Calendar c = event.getEndDate();
         final int year = c.get(Calendar.YEAR);
         int month = c.get(Calendar.MONTH);
@@ -204,4 +209,32 @@ public class AddModifyActivity extends AppCompatActivity {
 
     }
 
+
+    /**
+     * when a radio button is called this sets the appropriate color to event
+     *
+     * @param view Android view
+     */
+    public void onRadioButtonClicked(View view) {
+
+        // Check which radio button was clicked
+        switch (view.getId()) {
+            case R.id.colorWhiteRadioButton:
+                // set event color
+                event.setColor(android.R.color.white);
+                break;
+            case R.id.colorRedRadioButton:
+                event.setColor(android.R.color.holo_red_light);
+                break;
+            case R.id.colorGreenRadioButton:
+                event.setColor(android.R.color.holo_green_light);
+                break;
+            case R.id.colorBlueRadioButton:
+                event.setColor(android.R.color.holo_blue_light);
+                break;
+            case R.id.colorGrayRadioButton:
+                event.setColor(android.R.color.darker_gray);
+                break;
+        }
+    }
 }

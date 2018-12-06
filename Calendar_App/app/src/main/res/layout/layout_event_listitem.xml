@@ -22,15 +22,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBaseline="@+id/eventListTitle"
-        android:layout_marginStart="6dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginBottom="1dp"
-        android:layout_toEndOf="@+id/eventListTitle"
-        android:layout_toRightOf="@+id/eventListTitle"
+        android:layout_alignParentEnd="true"
         android:text="12:00 PM"
+        android:textAlignment="textEnd"
         android:textColor="@android:color/background_dark"
-        android:textSize="20sp" />
-
+        android:textSize="20sp"
+        android:background="@android:color/holo_blue_light"
+        android:padding="5dp" />
 
 
 </RelativeLayout>
