@@ -1,5 +1,6 @@
 package com.ftw.calendar_app.Activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     ArrayList<Event> mEvents;
 
+    @SuppressLint("SimpleDateFormat")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         date = new SimpleDateFormat("yyyy.MM.dd").format(new Date(selectedDate));
         mEvents = getmEventsOnDate(date);
         initRecyclerView();
+
+        onDateChange();
+
+    }
+
+    private void onDateChange(){
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -86,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
     @Override

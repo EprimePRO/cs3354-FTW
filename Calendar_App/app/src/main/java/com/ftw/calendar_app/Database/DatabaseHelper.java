@@ -12,15 +12,15 @@ import com.ftw.calendar_app.Event.Event;
 import java.util.Calendar;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "Calendar.db";
-    public static final String TABLE_NAME = "events_table";
-    public static final String ID = "id";
-    public static final String DAY = "day";
-    public static final String COLOR = "color";
-    public static final String COL_1 = "start_epoch_time";
-    public static final String COL_2 = "end_epoch_time";
-    public static final String COL_3 = "title";
-    public static final String COL_4 = "description";
+    private static final String DATABASE_NAME = "Calendar.db";
+    private static final String TABLE_NAME = "events_table";
+    private static final String ID = "id";
+    private static final String DAY = "day";
+    private static final String COLOR = "color";
+    private static final String COL_1 = "start_epoch_time";
+    private static final String COL_2 = "end_epoch_time";
+    private static final String COL_3 = "title";
+    private static final String COL_4 = "description";
 
 
     //version without color
@@ -28,11 +28,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //new version with color
     public static int version2 = 2;
 
-    Context context;
-
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, version2);
-        this.context = context;
     }
 
     private static final String TAG = "DatabaseHelper";
