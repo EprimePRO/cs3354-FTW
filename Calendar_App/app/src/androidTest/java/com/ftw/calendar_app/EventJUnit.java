@@ -1,6 +1,5 @@
 package com.ftw.calendar_app;
 
-import com.ftw.calendar_app.Database.DatabaseHelper;
 import com.ftw.calendar_app.Event.Event;
 
 import org.junit.Before;
