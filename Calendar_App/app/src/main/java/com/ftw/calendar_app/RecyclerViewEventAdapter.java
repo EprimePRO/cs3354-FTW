@@ -2,7 +2,6 @@ package com.ftw.calendar_app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -28,12 +27,14 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
 
         TextView title, time;
         RelativeLayout parentLayout;
+        View color;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.eventListTitle);
             time = itemView.findViewById(R.id.eventListTime);
             parentLayout = itemView.findViewById(R.id.event_list_item);
+            color = itemView.findViewById(R.id.eventListColor);
         }
     }
 
@@ -68,7 +69,7 @@ public class RecyclerViewEventAdapter extends RecyclerView.Adapter<RecyclerViewE
         Log.d(TAG, "onbindViewHolder: called.");
         holder.title.setText(mEvents.get(i).getTitle());
         holder.time.setText(mEvents.get(i).getStartTime());
-        holder.time.setBackgroundResource(mEvents.get(i).getColor());
+        holder.color.setBackgroundResource(mEvents.get(i).getColor());
 
         holder.parentLayout.setOnClickListener(new View.OnClickListener() {
             @Override

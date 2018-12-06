@@ -27,8 +27,17 @@
         android:textAlignment="textEnd"
         android:textColor="@android:color/background_dark"
         android:textSize="20sp"
-        android:background="@android:color/holo_blue_light"
         android:padding="5dp" />
+
+    <View
+        android:id="@+id/eventListColor"
+        android:layout_width="7dp"
+        android:layout_height="30dp"
+        android:layout_alignStart="@+id/eventListTime"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="-13dp"
+        android:elevation="1dp"
+        android:background="@android:color/holo_blue_light" />
 
 
 </RelativeLayout>
