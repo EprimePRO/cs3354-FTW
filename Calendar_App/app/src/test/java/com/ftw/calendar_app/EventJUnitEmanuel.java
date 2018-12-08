@@ -19,10 +19,20 @@ public class EventJUnitEmanuel {
     @Test
 
     public void testGetStartDateMMddyy() {
-        long time = 1545717600000L; //in central time
+        long date = 1545717600000L; //in central time
         String expected = "12/25/18";
-        event.setStartDate(time);
+        event.setStartDate(date);
 
-        assertEquals("Checking MMddyy", expected, event.getStartDateMMDDYY());
+        assertEquals("Checking start MMddyy", expected, event.getStartDateMMDDYY());
+    }
+
+    @Test
+
+    public void testGetEndDateMMddyy() {
+        long date = 1544162400000L; //in central time
+        String expected = "12/07/18";
+        event.setStartDate(date);
+
+        assertEquals("Checking end MMddyy", expected, event.getStartDateMMDDYY());
     }
 }
