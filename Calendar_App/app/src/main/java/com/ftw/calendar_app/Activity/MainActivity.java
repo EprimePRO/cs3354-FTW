@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     CalendarView calendarView;
 
-    TextView myDate;
     String date;
     Long selectedDate;
 
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private RecyclerViewEventAdapter mRecyclerAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
 
     ArrayList<Event> mEvents;
 
@@ -71,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //swaps events being shown when the date changes
     private void onDateChange(){
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
@@ -132,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    //returns all events on a given date
     ArrayList<Event> getmEventsOnDate(String date) {
         Cursor res = myDb.getEventsByDate(date);
         ArrayList<Event> events = new ArrayList<>();

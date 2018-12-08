@@ -44,6 +44,7 @@ public class EventDetailsActivity extends AppCompatActivity {
 
     }
 
+    //sets event details in their textviews
     public void setEventInfo(int eventID) {
         Event event = db.getEvent(eventID);
 
@@ -58,6 +59,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         }
     }
 
+    //edit event button
     public void editEvent(View v) {
         //db.editData(id, title, description, startTime, endTime, startPeriod, endPeriod);
         Intent intent = new Intent(EventDetailsActivity.this, AddModifyActivity.class);
@@ -65,6 +67,7 @@ public class EventDetailsActivity extends AppCompatActivity {
         startActivityForResult(intent, EVENT_MODIFIED);
     }
 
+    //delete event button
     public void deleteEvent(View v) {
         Boolean deleted = db.deleteEvent(eventID);
         if (deleted) {

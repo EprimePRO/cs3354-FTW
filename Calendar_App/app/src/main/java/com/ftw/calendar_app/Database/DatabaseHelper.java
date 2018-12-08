@@ -54,6 +54,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
     }
 
+    /**
+     * Adds an event to the database
+     *
+     * @param event event that is being added
+     * @return returns true if the entry was added successfully, false if not
+     */
     public boolean insertData(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -77,6 +83,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     }
 
+    /**
+     * Edits an existing event in the database
+     *
+     * @param event event that is being updated
+     * @return returns 1 if the entry updated successfully, 0 if not
+     */
     public int editData(Event event) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();

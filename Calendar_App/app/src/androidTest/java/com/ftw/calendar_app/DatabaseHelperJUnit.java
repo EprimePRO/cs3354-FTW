@@ -38,7 +38,7 @@ public class DatabaseHelperJUnit {
         assertEquals("Default Dance", editEvent.getTitle());
 
         editEvent.setTitle("Orange Justice");
-        assertEquals("Edit Event",1, tester.editData(editEvent));
+        assertEquals("Edit Event that does not exist",1, tester.editData(editEvent));
         assertEquals("Orange Justice", editEvent.getTitle());
     }
 

@@ -34,7 +34,6 @@ public class AddModifyActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_modify);
 
-        //Toast.makeText(AddModifyActivity.this, "Activity loaded", Toast.LENGTH_LONG).show();
         //load database helper
         myDb = new DatabaseHelper(this);
 
@@ -91,7 +90,8 @@ public class AddModifyActivity extends AppCompatActivity {
 
     }
 
-
+    //adds event to database unless no title exists or end time is after start time
+    //updates the event if the event already exists
     public void addData(View v) {
         if (editTitle.getText().toString().isEmpty()) {
             Toast.makeText(AddModifyActivity.this, "Title can't be empty!", Toast.LENGTH_LONG).show();
@@ -126,6 +126,8 @@ public class AddModifyActivity extends AppCompatActivity {
         }
     }
 
+    //sets start time to event's start time, default is 12:00AM
+    //sets end time to one hour after start time if the start time is after the end time
     public void setStartTime(View v) {
         final Calendar c = event.getStartDate();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -149,6 +151,7 @@ public class AddModifyActivity extends AppCompatActivity {
         timePicker.show();
     }
 
+    //sets end time to event's end time. default is 11:59PM
     public void setEndTime(View v) {
         final Calendar c = event.getEndDate();
         final int hour = c.get(Calendar.HOUR_OF_DAY);
@@ -164,6 +167,8 @@ public class AddModifyActivity extends AppCompatActivity {
         timePicker.show();
     }
 
+    //sets start date to event's start date
+    //sets end date to same day as start time if the start date is after the end date
     public void setStartDate(View v) {
         final Calendar c = event.getStartDate();
         final int year = c.get(Calendar.YEAR);
@@ -187,6 +192,7 @@ public class AddModifyActivity extends AppCompatActivity {
         datePicker.show();
     }
 
+    //sets end date to event's end date
     public void setEndDate(View v) {
         final Calendar c = event.getEndDate();
         final int year = c.get(Calendar.YEAR);
@@ -205,8 +211,6 @@ public class AddModifyActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
     }
 
 
